@@ -117,7 +117,8 @@ def main(page: ft.Page):
 
     while True:
         time.sleep(1)
-        temp = com_reader.get_data()
+        #temp = com_reader.get_data()
+        temp = com_reader.fake_data()
         handle_data()
         graph_handler()
         
