@@ -25,25 +25,28 @@ def receive_data():
         new_data.append(integers)
 
 def fake_data():
-    while True:
-        new_data.append([random.randint(1,140),random.randint(1,140),random.randint(1,140),random.randint(1,140)])
-        time.sleep(1)
-
+    #while True:
+    new_data.append([random.randint(1,140),random.randint(1,140),random.randint(1,140),random.randint(1,140)])
+    
+        #time.sleep(0.5)
 def get_data():
     global new_data
     global all_data
-    all_data.append(new_data)
-    temp = new_data
+    #all_data.append(new_data)
+    # ti ne smes belezit podatkov ampak sam nove posiljas da jaz lah 
+    # izbiram zacetek pa konec rida ker drgač bo meru k ne bo nic
+    #temp = new_data
+    #new_data = []
+    #if len(temp) < 1:
+    #    return [[-1,-1,-1,-1]]
+
     new_data = []
-    if len(temp) < 1:
-        return [[-1,-1,-1,-1]]
-    for i,x in enumerate(temp):
-        if len(x) != 4:
-            temp[i] = [-1,-1,-1,-1]
-        
+    fake_data()
+    temp = new_data
+
     return temp
 
 
 # Start of main code
-t1 = threading.Thread(target=receive_data)
-t1.start()
+#t1 = threading.Thread(target=fake_data)
+#t1.start()
