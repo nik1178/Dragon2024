@@ -1,0 +1,1086 @@
+{
+  "Application": {
+    "Screens": [
+      {
+        "Name": "HomeScreen",
+        "CanvasBufferSize": 7200,
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "background",
+            "Width": 480,
+            "Height": 272,
+            "RelativeFilename": "__generated\\alternate_theme_images_backgrounds_480x272_poly.png",
+            "Clickable": true
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "DetailScreenButton",
+            "X": 444,
+            "Y": -1,
+            "Width": 36,
+            "Height": 36,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_icon_round_micro_fill_disabled.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_icon_round_micro_fill_disabled.png",
+            "IconPressed": "__generated\\icon_theme_images_navigation_expand_more_50_50_E8F6FB.svg.png",
+            "IconReleased": "__generated\\icon_theme_images_navigation_expand_more_50_50_78A0B6.svg.png",
+            "IconX": -7,
+            "IconY": -7,
+            "IconHeight": 50,
+            "IconWidth": 50,
+            "Preset": "alternate_theme\\presets\\button\\icon\\round\\micro_fill_disabled.json"
+          },
+          {
+            "Type": "Gauge",
+            "Name": "gaugeSpeed",
+            "X": 214,
+            "Y": 18,
+            "Width": 240,
+            "Height": 240,
+            "FileNameBackground": "image_Speed.png",
+            "RotationCenterX": 120.0,
+            "RotationCenterY": 120.0,
+            "StartAngle": -113.0,
+            "EndAngle": 112.0,
+            "RangeMax": 200.0,
+            "UseAnimation": true,
+            "Easing": "Cubic",
+            "EasingOption": "InOut",
+            "FileNameNeedle": "__generated\\alternate_theme_images_widgets_gauge_medium_needles_smooth.png",
+            "NeedleRotationCenterX": 7.0,
+            "NeedleRotationCenterY": 67.0,
+            "NeedleMovingRenderingAlgorithm": "Bilinear Interpolation",
+            "NeedleSteadyRenderingAlgorithm": "Bilinear Interpolation",
+            "ArcColor": {
+              "Red": 24,
+              "Green": 214,
+              "Blue": 59
+            },
+            "ArcRadius": 103.0,
+            "ArcLineWidth": 7.0,
+            "ArcCapStyle": "Round",
+            "Clickable": true
+          },
+          {
+            "Type": "Gauge",
+            "Name": "gaugeRPM",
+            "X": 15,
+            "Y": 88,
+            "Width": 184,
+            "Height": 184,
+            "FileNameBackground": "rpm_meter.png",
+            "RotationCenterX": 92.0,
+            "RotationCenterY": 92.0,
+            "StartAngle": -135.0,
+            "EndAngle": 135.0,
+            "RangeMax": 6000.0,
+            "UseAnimation": true,
+            "Easing": "Cubic",
+            "EasingOption": "InOut",
+            "FileNameNeedle": "__generated\\alternate_theme_images_widgets_gauge_small_needles_rough.png",
+            "NeedleRotationCenterX": 8.0,
+            "NeedleRotationCenterY": 53.0,
+            "NeedleMovingRenderingAlgorithm": "Bilinear Interpolation",
+            "NeedleSteadyRenderingAlgorithm": "Bilinear Interpolation",
+            "ArcColor": {
+              "Red": 20,
+              "Green": 151,
+              "Blue": 197
+            },
+            "ArcCapStyle": "Butt"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "rpm",
+            "X": 70,
+            "Y": 233,
+            "Width": 74,
+            "Height": 12,
+            "TextId": "__SingleUse_55AI",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 39,
+              "Green": 68,
+              "Blue": 87
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "BoxWithBorder",
+            "Name": "BasicInfoBox",
+            "X": 15,
+            "Y": 3,
+            "Width": 184,
+            "Height": 85,
+            "Color": {
+              "Red": 120,
+              "Green": 160,
+              "Blue": 182
+            },
+            "BorderColor": {
+              "Red": 39,
+              "Green": 68,
+              "Blue": 87
+            },
+            "BorderSize": 4
+          },
+          {
+            "Type": "TextArea",
+            "Name": "speedText",
+            "X": 298,
+            "Y": 199,
+            "Width": 73,
+            "Height": 24,
+            "TextId": "__SingleUse_RS5G",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 39,
+              "Green": 68,
+              "Blue": 87
+            },
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_FK1R",
+              "UseBuffer": true,
+              "BufferSize": 5
+            }
+          },
+          {
+            "Type": "BoxProgress",
+            "Name": "coolantTempProgressBar",
+            "X": 36,
+            "Y": 22,
+            "Width": 100,
+            "Height": 10,
+            "Color": {
+              "Red": 254,
+              "Green": 189,
+              "Blue": 23
+            },
+            "Direction": "Right",
+            "Preset": "alternate_theme\\presets\\boxprogress\\normal\\tiny_action.json",
+            "FileNameBackground": "__generated\\alternate_theme_images_widgets_boxprogress_normal_tiny.png",
+            "IndicatorPositionWidth": 100,
+            "IndicatorPositionHeight": 10,
+            "ProgressRangeMax": 180,
+            "ProgressInitialValue": 5
+          },
+          {
+            "Type": "BoxProgress",
+            "Name": "fuelTankLevelProgressBar",
+            "X": 36,
+            "Y": 55,
+            "Width": 100,
+            "Height": 10,
+            "Color": {
+              "Red": 254,
+              "Green": 189,
+              "Blue": 23
+            },
+            "Direction": "Right",
+            "Preset": "alternate_theme\\presets\\boxprogress\\normal\\tiny_action.json",
+            "FileNameBackground": "__generated\\alternate_theme_images_widgets_boxprogress_normal_tiny.png",
+            "IndicatorPositionWidth": 100,
+            "IndicatorPositionHeight": 10,
+            "ProgressRangeMax": 100,
+            "ProgressInitialValue": 2
+          },
+          {
+            "Type": "ScalableImage",
+            "Name": "scalableImage1",
+            "X": 150,
+            "Y": 48,
+            "Width": 32,
+            "Height": 25,
+            "Filename": "fuel_pump.png",
+            "ScalingAlgorithm": "Nearest-neighbor"
+          },
+          {
+            "Type": "ScalableImage",
+            "Name": "scalableImage2",
+            "X": 150,
+            "Y": 15,
+            "Width": 28,
+            "Height": 25,
+            "Filename": "thermometer.png",
+            "ScalingAlgorithm": "Nearest-neighbor"
+          },
+          {
+            "Type": "Line",
+            "Name": "coolantTempDivider",
+            "X": 66,
+            "Y": 17,
+            "Width": 100,
+            "Height": 15,
+            "Alpha": 150,
+            "StartX": 20.0,
+            "StartY": 5.0,
+            "EndX": 20.0,
+            "EndY": 25.0,
+            "LineWidth": 2.0,
+            "LineEndingStyle": "Butt"
+          },
+          {
+            "Type": "Line",
+            "Name": "fuelTankDivider",
+            "X": 27,
+            "Y": 50,
+            "Width": 100,
+            "Height": 15,
+            "Color": {
+              "Red": 255,
+              "Green": 42
+            },
+            "Alpha": 150,
+            "StartX": 20.0,
+            "StartY": 5.0,
+            "EndX": 20.0,
+            "EndY": 25.0,
+            "LineWidth": 2.0,
+            "LineEndingStyle": "Butt"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "ScreenChange",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "DetailScreenButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "DetailsScreen"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "DetailsScreen",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "background",
+            "Width": 480,
+            "Height": 272,
+            "RelativeFilename": "__generated\\alternate_theme_images_backgrounds_480x272_poly.png"
+          },
+          {
+            "Type": "BoxWithBorder",
+            "Name": "boxWithBorder1",
+            "X": 23,
+            "Y": 51,
+            "Width": 138,
+            "Height": 57,
+            "Color": {
+              "Red": 97,
+              "Green": 132,
+              "Blue": 158
+            },
+            "BorderColor": {
+              "Red": 49,
+              "Green": 89,
+              "Blue": 115
+            },
+            "BorderSize": 5,
+            "Alpha": 200
+          },
+          {
+            "Type": "BoxWithBorder",
+            "Name": "boxWithBorder2",
+            "X": 171,
+            "Y": 51,
+            "Width": 138,
+            "Height": 57,
+            "Color": {
+              "Red": 97,
+              "Green": 132,
+              "Blue": 158
+            },
+            "BorderColor": {
+              "Red": 49,
+              "Green": 89,
+              "Blue": 115
+            },
+            "BorderSize": 5,
+            "Alpha": 200
+          },
+          {
+            "Type": "BoxWithBorder",
+            "Name": "boxWithBorder3",
+            "X": 318,
+            "Y": 51,
+            "Width": 138,
+            "Height": 57,
+            "Color": {
+              "Red": 97,
+              "Green": 132,
+              "Blue": 158
+            },
+            "BorderColor": {
+              "Red": 49,
+              "Green": 89,
+              "Blue": 115
+            },
+            "BorderSize": 5,
+            "Alpha": 200
+          },
+          {
+            "Type": "BoxWithBorder",
+            "Name": "boxWithBorder4",
+            "X": 23,
+            "Y": 124,
+            "Width": 138,
+            "Height": 57,
+            "Color": {
+              "Red": 97,
+              "Green": 132,
+              "Blue": 158
+            },
+            "BorderColor": {
+              "Red": 49,
+              "Green": 89,
+              "Blue": 115
+            },
+            "BorderSize": 5,
+            "Alpha": 200
+          },
+          {
+            "Type": "BoxWithBorder",
+            "Name": "boxWithBorder5",
+            "X": 171,
+            "Y": 124,
+            "Width": 138,
+            "Height": 57,
+            "Color": {
+              "Red": 97,
+              "Green": 132,
+              "Blue": 158
+            },
+            "BorderColor": {
+              "Red": 49,
+              "Green": 89,
+              "Blue": 115
+            },
+            "BorderSize": 5,
+            "Alpha": 200
+          },
+          {
+            "Type": "BoxWithBorder",
+            "Name": "boxWithBorder6",
+            "X": 318,
+            "Y": 124,
+            "Width": 138,
+            "Height": 57,
+            "Color": {
+              "Red": 97,
+              "Green": 132,
+              "Blue": 158
+            },
+            "BorderColor": {
+              "Red": 49,
+              "Green": 89,
+              "Blue": 115
+            },
+            "BorderSize": 5,
+            "Alpha": 200
+          },
+          {
+            "Type": "BoxWithBorder",
+            "Name": "boxWithBorder7",
+            "X": 23,
+            "Y": 196,
+            "Width": 138,
+            "Height": 57,
+            "Color": {
+              "Red": 97,
+              "Green": 132,
+              "Blue": 158
+            },
+            "BorderColor": {
+              "Red": 49,
+              "Green": 89,
+              "Blue": 115
+            },
+            "BorderSize": 5,
+            "Alpha": 200
+          },
+          {
+            "Type": "BoxWithBorder",
+            "Name": "boxWithBorder8",
+            "X": 171,
+            "Y": 196,
+            "Width": 138,
+            "Height": 57,
+            "Color": {
+              "Red": 97,
+              "Green": 132,
+              "Blue": 158
+            },
+            "BorderColor": {
+              "Red": 49,
+              "Green": 89,
+              "Blue": 115
+            },
+            "BorderSize": 5,
+            "Alpha": 200
+          },
+          {
+            "Type": "BoxWithBorder",
+            "Name": "boxWithBorder9",
+            "X": 318,
+            "Y": 196,
+            "Width": 138,
+            "Height": 57,
+            "Color": {
+              "Red": 97,
+              "Green": 132,
+              "Blue": 158
+            },
+            "BorderColor": {
+              "Red": 49,
+              "Green": 89,
+              "Blue": 115
+            },
+            "BorderSize": 5,
+            "Alpha": 200
+          },
+          {
+            "Type": "TextArea",
+            "Name": "title",
+            "X": 209,
+            "Y": 6,
+            "Width": 62,
+            "Height": 30,
+            "TextId": "__SingleUse_A7QO",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "homeScreenButton",
+            "X": 444,
+            "Width": 36,
+            "Height": 36,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_icon_round_micro_fill_disabled.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_icon_round_micro_fill_disabled.png",
+            "IconPressed": "__generated\\icon_theme_images_navigation_expand_less_50_50_E8F6FB.svg.png",
+            "IconReleased": "__generated\\icon_theme_images_navigation_expand_less_50_50_78A0B6.svg.png",
+            "IconX": -7,
+            "IconY": -7,
+            "IconHeight": 50,
+            "IconWidth": 50,
+            "Preset": "alternate_theme\\presets\\button\\icon\\round\\micro_fill_disabled.json"
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "ModalWindowButton",
+            "Width": 36,
+            "Height": 36,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_icon_round_micro_fill_disabled.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_icon_round_micro_fill_disabled.png",
+            "IconPressed": "__generated\\icon_theme_images_action_info_50_50_E8F6FB.svg.png",
+            "IconReleased": "__generated\\icon_theme_images_action_info_50_50_E8F6FB.svg.png",
+            "IconX": -7,
+            "IconY": -7,
+            "IconHeight": 50,
+            "IconWidth": 50,
+            "Preset": "alternate_theme\\presets\\button\\icon\\round\\micro_fill_disabled.json"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea3",
+            "X": 77,
+            "Y": 59,
+            "Width": 31,
+            "Height": 12,
+            "TextId": "__SingleUse_VWPI",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textSpeed",
+            "X": 31,
+            "Y": 79,
+            "Width": 123,
+            "Height": 25,
+            "TextId": "__SingleUse_MK8R",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "__SingleUse_O704",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea4",
+            "X": 230,
+            "Y": 59,
+            "Width": 21,
+            "Height": 12,
+            "TextId": "__SingleUse_NDPG",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea5",
+            "X": 358,
+            "Y": 59,
+            "Width": 58,
+            "Height": 12,
+            "TextId": "__SingleUse_9BVT",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textRPMs",
+            "X": 175,
+            "Y": 79,
+            "Width": 131,
+            "Height": 25,
+            "TextId": "__SingleUse_5COD",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "__SingleUse_W1Q5",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textEngLoad",
+            "X": 325,
+            "Y": 79,
+            "Width": 127,
+            "Height": 25,
+            "TextId": "__SingleUse_D2D6",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "__SingleUse_WL4J",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textCatalystTemp",
+            "X": 70,
+            "Y": 224,
+            "Width": 45,
+            "Height": 24,
+            "TextId": "__SingleUse_F8SU",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_FZ3G",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textIntakeManifoldPressure",
+            "X": 212,
+            "Y": 224,
+            "Width": 56,
+            "Height": 24,
+            "TextId": "__SingleUse_6MDP",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_NMU8",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textBarometricPressure",
+            "X": 360,
+            "Y": 224,
+            "Width": 57,
+            "Height": 24,
+            "TextId": "__SingleUse_E8UZ",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_1ZNT",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea6",
+            "X": 40,
+            "Y": 130,
+            "Width": 104,
+            "Height": 12,
+            "TextId": "__SingleUse_UTMM",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea7",
+            "X": 183,
+            "Y": 130,
+            "Width": 115,
+            "Height": 12,
+            "TextId": "__SingleUse_42B1",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea11",
+            "X": 333,
+            "Y": 130,
+            "Width": 108,
+            "Height": 12,
+            "TextId": "__SingleUse_U5AC",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea15",
+            "X": 39,
+            "Y": 203,
+            "Width": 107,
+            "Height": 12,
+            "TextId": "__SingleUse_TW4D",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea16",
+            "X": 177,
+            "Y": 203,
+            "Width": 126,
+            "Height": 12,
+            "TextId": "__SingleUse_4547",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea17",
+            "X": 335,
+            "Y": 203,
+            "Width": 101,
+            "Height": 12,
+            "TextId": "__SingleUse_1VDV",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textCoolTemp",
+            "X": 30,
+            "Y": 149,
+            "Width": 126,
+            "Height": 25,
+            "TextId": "__SingleUse_5GX5",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "__SingleUse_VWCY",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textIntakeTemp",
+            "X": 175,
+            "Y": 149,
+            "Width": 131,
+            "Height": 25,
+            "TextId": "__SingleUse_8SKY",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "__SingleUse_PGXL",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textAmbientTemp",
+            "X": 325,
+            "Y": 149,
+            "Width": 127,
+            "Height": 25,
+            "TextId": "__SingleUse_3B5Y",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "__SingleUse_TJJR",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "ModalWindow",
+            "Name": "modalWindow1",
+            "Width": 480,
+            "Height": 272,
+            "Visible": false,
+            "FileName": "__generated\\alternate_theme_images_containers_large_narrow_outlined_light.png",
+            "Color": {
+              "Red": 39,
+              "Green": 68,
+              "Blue": 87
+            },
+            "ModalX": 84,
+            "ModalY": 1,
+            "ModalWidth": 312,
+            "ModalHeight": 270,
+            "Alpha": 200,
+            "Components": [
+              {
+                "Type": "TextArea",
+                "Name": "textArea12",
+                "X": 66,
+                "Y": 11,
+                "Width": 193,
+                "Height": 24,
+                "TextId": "__SingleUse_ZLVJ",
+                "TextRotation": "0",
+                "AutoSize": true
+              },
+              {
+                "Type": "ButtonWithLabel",
+                "Name": "closeModalButton",
+                "X": 131,
+                "Y": 223,
+                "Width": 36,
+                "Height": 36,
+                "Pressed": "__generated\\alternate_theme_images_widgets_button_icon_round_micro_fill_pressed.png",
+                "Released": "__generated\\alternate_theme_images_widgets_button_icon_round_micro_fill_pressed.png",
+                "TextId": "__SingleUse_0UQ0",
+                "ReleasedColor": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "PressedColor": {
+                  "Red": 255,
+                  "Green": 255,
+                  "Blue": 255
+                },
+                "TextRotation": "0"
+              },
+              {
+                "Type": "ScalableImage",
+                "Name": "endava",
+                "X": 21,
+                "Y": 50,
+                "Width": 113,
+                "Height": 20,
+                "Filename": "endava_new_Logo.png",
+                "ScalingAlgorithm": "Nearest-neighbor"
+              },
+              {
+                "Type": "ScalableImage",
+                "Name": "Sellestial",
+                "X": 13,
+                "Y": 82,
+                "Width": 129,
+                "Height": 25,
+                "Filename": "Sellestial_dark.png",
+                "ScalingAlgorithm": "Nearest-neighbor"
+              },
+              {
+                "Type": "ScalableImage",
+                "Name": "zero",
+                "X": 39,
+                "Y": 123,
+                "Width": 94,
+                "Height": 33,
+                "Filename": "zerodays.png",
+                "ScalingAlgorithm": "Nearest-neighbor"
+              },
+              {
+                "Type": "ScalableImage",
+                "Name": "leanix",
+                "X": 36,
+                "Y": 165,
+                "Width": 82,
+                "Height": 41,
+                "Filename": "leanix-logo-vector.png",
+                "ScalingAlgorithm": "Nearest-neighbor"
+              },
+              {
+                "Type": "ScalableImage",
+                "Name": "landis_gyr",
+                "X": 45,
+                "Y": 213,
+                "Width": 64,
+                "Height": 44,
+                "Filename": "landis-gyr.png",
+                "ScalingAlgorithm": "Nearest-neighbor"
+              },
+              {
+                "Type": "ScalableImage",
+                "Name": "qlector",
+                "X": 182,
+                "Y": 44,
+                "Width": 98,
+                "Height": 28,
+                "Filename": "QLECTOR-logo-blue.png",
+                "ScalingAlgorithm": "Nearest-neighbor"
+              },
+              {
+                "Type": "ScalableImage",
+                "Name": "celtra",
+                "X": 210,
+                "Y": 123,
+                "Width": 49,
+                "Height": 42,
+                "Filename": "eltra.png",
+                "ScalingAlgorithm": "Nearest-neighbor"
+              },
+              {
+                "Type": "ScalableImage",
+                "Name": "plume",
+                "X": 193,
+                "Y": 78,
+                "Width": 76,
+                "Height": 41,
+                "Filename": "Plume-Logo.png",
+                "ScalingAlgorithm": "Nearest-neighbor"
+              },
+              {
+                "Type": "ScalableImage",
+                "Name": "ixtlant",
+                "X": 178,
+                "Y": 173,
+                "Width": 107,
+                "Height": 33,
+                "Filename": "ixtlan.ng.png",
+                "ScalingAlgorithm": "Nearest-neighbor"
+              },
+              {
+                "Type": "ScalableImage",
+                "Name": "scalableImage1",
+                "X": 199,
+                "Y": 222,
+                "Width": 70,
+                "Height": 26,
+                "Filename": "Mlh-logo-color.svg.png",
+                "ScalingAlgorithm": "Nearest-neighbor"
+              }
+            ]
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "ScreenChange",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "homeScreenButton"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionDirection": "North",
+              "ActionComponent": "HomeScreen"
+            }
+          },
+          {
+            "InteractionName": "ShowModalWindow",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ModalWindowButton"
+            },
+            "Action": {
+              "Type": "ActionShow",
+              "ActionComponent": "modalWindow1"
+            }
+          },
+          {
+            "InteractionName": "ShowModalButton",
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "ShowModalWindow"
+            },
+            "Action": {
+              "Type": "ActionShow",
+              "ActionComponent": "closeModalButton"
+            }
+          },
+          {
+            "InteractionName": "CloseModalWindow",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "closeModalButton"
+            },
+            "Action": {
+              "Type": "ActionHide",
+              "ActionComponent": "modalWindow1"
+            }
+          }
+        ]
+      }
+    ],
+    "CustomContainerDefinitions": [],
+    "Name": "OBD2",
+    "Resolution": {
+      "Width": 480,
+      "Height": 272
+    },
+    "SelectedColorDepth": 16,
+    "StartupScreenName": "HomeScreen",
+    "SelectedStartupLanguage": "GB",
+    "TouchGfxPath": "../Middlewares/ST/touchgfx",
+    "UIPath": ".",
+    "AvailableColorDepths": [
+      16
+    ],
+    "AvailableLCDs": {
+      "16": "LCD16bpp"
+    },
+    "AvailableSections": [
+      "ExtFlashSection",
+      "IntFlashSection"
+    ],
+    "AvailableResolutions": [
+      {
+        "Width": 480,
+        "Height": 272
+      }
+    ],
+    "PhysicalButtons": [],
+    "FrameworkFeatures": {
+      "LCD16bpp": {
+        "Id": "LCD16bpp",
+        "IsEnabled": true
+      }
+    },
+    "GenerateAssetsCommand": "make -f simulator/gcc/Makefile assets -j8",
+    "PostGenerateCommand": "touchgfx update_project --project-file=simulator/msvs/Application.vcxproj",
+    "PostGenerateTargetCommand": "touchgfx update_project",
+    "CompileSimulatorCommand": "make -f simulator/gcc/Makefile -j8",
+    "RunSimulatorCommand": "build\\bin\\simulator.exe",
+    "CompileTargetCommandOverride": "make -f ../gcc/Makefile -j8",
+    "FlashTargetCommandOverride": "make -f ../gcc/Makefile flash",
+    "LandscapeSkinX": 0,
+    "LandscapeSkinY": 0,
+    "PortraitSkinX": 0,
+    "PortraitSkinY": 0,
+    "DisplayOrientation": "Landscape",
+    "Family": "STM32H7",
+    "SubFamily": "STM32H750 Value line",
+    "Toolchain": "STM32CubeIDE",
+    "Platform": "m7",
+    "ProjectFile": "../STM32H750B-DK.ioc",
+    "OptionalComponentsRoot": "../Middlewares/ST/touchgfx_components",
+    "OptionalComponents": [],
+    "AdditionalFeatures": [
+      "Vector"
+    ]
+  },
+  "Version": "4.22.1",
+  "CreatedBy": "4.21.1"
+}
