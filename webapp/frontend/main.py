@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
 from flet.matplotlib_chart import MatplotlibChart
-
+import com_reader.py
 matplotlib.use("svg")
 
 
@@ -99,9 +99,8 @@ def main(page: ft.Page):
         ax4.plot(x4_data, y4_data)
         ax4.set_xlabel('Time (s)')
         ax4.set_ylabel('Poraba')
-    
 
-    while True:
+    def graph_handler(): 
         time.sleep(1)
         update_graph1()
         update_graph2()
@@ -112,6 +111,13 @@ def main(page: ft.Page):
         graf3.update()
         graf4.update()
 
+    while True:
+        time.sleep(1)
+        get_data()
+        graph_handler()
+        
+
+    print("Ona mene pali")
     
     
 
