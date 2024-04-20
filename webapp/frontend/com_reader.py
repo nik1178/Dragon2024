@@ -35,7 +35,7 @@ def receive_data():
         
         data = []
         for i,x in enumerate(split_table):
-            data.append(int(x))
+            data.append(x)
         
         new_data.append(data)
         
@@ -43,30 +43,8 @@ def receive_data():
 
 def fake_data():
     while True:
-        cc="b'\\x05\\xc7\\x22\\t"
-        cc = cc[2:-2]
-        
-        split_table = cc.split("\\")
-        if len(split_table) < 2:
-            continue
-        
-        print(split_table)
-        for i,x in enumerate(split_table):
-            if len(x) < 1:
-                split_table.pop(i)
-                continue
-            if x[0] == 'x':
-                split_table[i] = int(x[1:], 16)
-            else:
-                split_table[i] = int(x)
-        
-        data = []
-        for i,x in enumerate(split_table):
-            data.append(x)
-        
-        new_data.append(data)
-        
-        print(data)
+        new_data.append([1,2,3,4])
+        time.sleep(1)
 
 def get_data():
     global new_data
@@ -82,4 +60,3 @@ def get_data():
 # Start of main code
 t1 = threading.Thread(target=fake_data)
 t1.start()
-
