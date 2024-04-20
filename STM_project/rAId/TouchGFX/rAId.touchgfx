@@ -127,10 +127,10 @@
           {
             "Type": "TextArea",
             "Name": "speedText",
-            "X": 298,
-            "Y": 199,
-            "Width": 73,
-            "Height": 24,
+            "X": 284,
+            "Y": 200,
+            "Width": 101,
+            "Height": 25,
             "TextId": "__SingleUse_RS5G",
             "TextRotation": "0",
             "Color": {
@@ -138,11 +138,10 @@
               "Green": 68,
               "Blue": 87
             },
-            "AutoSize": true,
             "Wildcard1": {
               "TextId": "__SingleUse_FK1R",
               "UseBuffer": true,
-              "BufferSize": 5
+              "BufferSize": 7
             }
           },
           {
@@ -511,9 +510,9 @@
           {
             "Type": "TextArea",
             "Name": "textSpeed",
-            "X": 31,
+            "X": 30,
             "Y": 79,
-            "Width": 123,
+            "Width": 126,
             "Height": 25,
             "TextId": "__SingleUse_MK8R",
             "TextRotation": "0",
@@ -525,7 +524,7 @@
             "Wildcard1": {
               "TextId": "__SingleUse_O704",
               "UseBuffer": true,
-              "BufferSize": 10
+              "BufferSize": 12
             }
           },
           {

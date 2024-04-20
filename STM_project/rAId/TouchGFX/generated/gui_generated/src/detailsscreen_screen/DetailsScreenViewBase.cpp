@@ -104,7 +104,7 @@ DetailsScreenViewBase::DetailsScreenViewBase() :
     textArea3.setTypedText(touchgfx::TypedText(T___SINGLEUSE_VWPI));
     add(textArea3);
 
-    textSpeed.setPosition(31, 79, 123, 25);
+    textSpeed.setPosition(30, 79, 126, 25);
     textSpeed.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     textSpeed.setLinespacing(0);
     Unicode::snprintf(textSpeedBuffer, TEXTSPEED_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_O704).getText());

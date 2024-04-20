@@ -81,7 +81,7 @@ protected:
     /*
      * Wildcard Buffers
      */
-    static const uint16_t TEXTSPEED_SIZE = 10;
+    static const uint16_t TEXTSPEED_SIZE = 12;
     touchgfx::Unicode::UnicodeChar textSpeedBuffer[TEXTSPEED_SIZE];
     static const uint16_t TEXTRPMS_SIZE = 10;
     touchgfx::Unicode::UnicodeChar textRPMsBuffer[TEXTRPMS_SIZE];

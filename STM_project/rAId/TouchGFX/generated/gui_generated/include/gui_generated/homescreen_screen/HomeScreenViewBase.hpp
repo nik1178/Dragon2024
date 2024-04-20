@@ -55,7 +55,7 @@ protected:
     /*
      * Wildcard Buffers
      */
-    static const uint16_t SPEEDTEXT_SIZE = 5;
+    static const uint16_t SPEEDTEXT_SIZE = 7;
     touchgfx::Unicode::UnicodeChar speedTextBuffer[SPEEDTEXT_SIZE];
 
 private:

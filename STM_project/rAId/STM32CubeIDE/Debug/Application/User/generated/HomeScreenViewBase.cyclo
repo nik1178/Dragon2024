@@ -31,7 +31,7 @@
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:49:36:virtual touchgfx::TextArea::BoundingArea touchgfx::TextAreaWithWildcardBase::calculateBoundingArea() const	1
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:84:41:virtual const UnicodeChar* touchgfx::TextAreaWithOneWildcard::getWildcard1() const	1
 ../../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD16bpp.hpp:65:34:virtual touchgfx::Bitmap::BitmapFormat touchgfx::LCD16bpp::framebufferFormat() const	1
-C:/TouchGFXProjects/rAId/TouchGFX/generated/gui_generated/src/homescreen_screen/HomeScreenViewBase.cpp:128:6:virtual void HomeScreenViewBase::setupScreen()	1
+C:/TouchGFXProjects/rAId/TouchGFX/generated/gui_generated/src/homescreen_screen/HomeScreenViewBase.cpp:127:6:virtual void HomeScreenViewBase::setupScreen()	1
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:357:8:touchgfx::Callback<HomeScreenViewBase, const touchgfx::AbstractButton&>::~Callback()	1
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/mixins/ClickListener.hpp:33:7:touchgfx::ClickListener<touchgfx::Gauge>::~ClickListener()	1
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/mixins/ClickListener.hpp:33:7:touchgfx::ClickListener<touchgfx::Image>::~ClickListener()	1
@@ -43,12 +43,12 @@ C:/TouchGFXProjects/rAId/TouchGFX/generated/gui_generated/src/homescreen_screen/
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/mixins/ClickListener.hpp:33:7:virtual touchgfx::ClickListener<touchgfx::Image>::~ClickListener()	1
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/mixins/ClickListener.hpp:33:7:virtual touchgfx::ClickListener<touchgfx::Gauge>::~ClickListener()	1
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:357:8:virtual touchgfx::Callback<HomeScreenViewBase, const touchgfx::AbstractButton&>::~Callback()	1
-C:/TouchGFXProjects/rAId/TouchGFX/generated/gui_generated/src/homescreen_screen/HomeScreenViewBase.cpp:123:1:HomeScreenViewBase::~HomeScreenViewBase()	1
-C:/TouchGFXProjects/rAId/TouchGFX/generated/gui_generated/src/homescreen_screen/HomeScreenViewBase.cpp:123:1:virtual HomeScreenViewBase::~HomeScreenViewBase()	1
+C:/TouchGFXProjects/rAId/TouchGFX/generated/gui_generated/src/homescreen_screen/HomeScreenViewBase.cpp:122:1:HomeScreenViewBase::~HomeScreenViewBase()	1
+C:/TouchGFXProjects/rAId/TouchGFX/generated/gui_generated/src/homescreen_screen/HomeScreenViewBase.cpp:122:1:virtual HomeScreenViewBase::~HomeScreenViewBase()	1
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:118:18:virtual void touchgfx::Image::invalidateContent() const	3
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/mixins/ClickListener.hpp:49:18:void touchgfx::ClickListener<T>::handleClickEvent(const touchgfx::ClickEvent&) [with T = touchgfx::Gauge]	3
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/mixins/ClickListener.hpp:49:18:void touchgfx::ClickListener<T>::handleClickEvent(const touchgfx::ClickEvent&) [with T = touchgfx::Image]	3
-C:/TouchGFXProjects/rAId/TouchGFX/generated/gui_generated/src/homescreen_screen/HomeScreenViewBase.cpp:133:6:void HomeScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton&)	2
+C:/TouchGFXProjects/rAId/TouchGFX/generated/gui_generated/src/homescreen_screen/HomeScreenViewBase.cpp:132:6:void HomeScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton&)	2
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp:111:18:virtual void touchgfx::TextArea::setBaselineY(int16_t)	3
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Gauge.hpp:189:18:virtual void touchgfx::Gauge::invalidateContent() const	4
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp:127:18:virtual void touchgfx::TextArea::setXBaselineY(int16_t, int16_t)	5

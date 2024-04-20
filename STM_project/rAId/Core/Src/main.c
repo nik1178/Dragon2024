@@ -103,7 +103,10 @@ const osThreadAttr_t SendQueryTask_attributes = {
 // add message queues
 extern osMessageQueueId_t mid_2Model_Queue;
 osMessageQueueId_t mid_OBD2MsgQueue;
-
+DMA_HandleTypeDef dma1_struct = {0};
+UART_HandleTypeDef uart = {0};
+uint8_t blink = 1;
+uint8_t txt[30];
 
 /* USER CODE END PV */
 
@@ -128,7 +131,6 @@ void ReceiveMessageTask(void *argument);
 void SendQueryTask(void *argument);
 
 /* USER CODE END PFP */
-
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
@@ -183,6 +185,25 @@ int main(void)
   /* Call PreOsInit function */
   MX_TouchGFX_PreOSInit();
   /* USER CODE BEGIN 2 */
+  __HAL_RCC_USART3_CLK_ENABLE();
+
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  GPIO_InitTypeDef init_uart;
+  init_uart.Pin = GPIO_PIN_10 | GPIO_PIN_11;
+  init_uart.Mode = GPIO_MODE_AF_PP;
+  init_uart.Pull = GPIO_PULLUP;
+  init_uart.Speed = GPIO_SPEED_FREQ_LOW;
+  init_uart.Alternate = GPIO_AF7_USART3;
+  HAL_GPIO_Init(GPIOB, &init_uart);
+
+  uart.Instance = USART3;
+  uart.Init.BaudRate = 115200;
+  uart.Init.WordLength = UART_WORDLENGTH_8B;
+  uart.Init.StopBits = UART_STOPBITS_1;
+  uart.Init.Parity = UART_PARITY_NONE;
+  uart.Init.Mode = UART_MODE_TX_RX;
+  uart.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  HAL_UART_Init(&uart);
 
   BSP_LED_Init(LED_GREEN);
   BSP_LED_Init(LED_RED);
@@ -753,10 +774,12 @@ void ReceiveMessageTask(void *argument)
 
 void SendQueryTask(void *argument)
 {
-
   /* Infinite loop */
   for(;;)
   {
+	  HAL_UART_Transmit(&uart, txt, sizeof(txt), HAL_MAX_DELAY);
+	  // uart.gState = HAL_UART_STATE_READY;
+	  blink = 1;
 	  OBD2_SendQuery(0x01, OBD2_PID_VEHICLE_SPEED);
 	  osDelay(DELAY);
 	  OBD2_SendQuery(0x01, OBD2_PID_ENGINE_SPEED);
@@ -811,12 +834,14 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
+	static char znak= 'A';
   for(;;)
   {
 	BSP_LED_On(LED_GREEN);
     osDelay(1000);
     BSP_LED_Off(LED_GREEN);
     osDelay(1000);
+    HAL_UART_Transmit(&uart, &znak, sizeof(znak), HAL_MAX_DELAY);
   }
   /* USER CODE END 5 */
 }

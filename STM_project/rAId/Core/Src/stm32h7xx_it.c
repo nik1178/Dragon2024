@@ -62,6 +62,8 @@ extern MDMA_HandleTypeDef hmdma_jpeg_outfifo_th;
 extern JPEG_HandleTypeDef hjpeg;
 extern LTDC_HandleTypeDef hltdc;
 extern TIM_HandleTypeDef htim6;
+extern uint8_t blink;
+extern DMA_HandleTypeDef dma1_struct;
 
 /* USER CODE BEGIN EV */
 
@@ -83,6 +85,14 @@ void NMI_Handler(void)
   /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
 
   /* USER CODE END NonMaskableInt_IRQn 1 */
+}
+
+void DMA1_Stream0_IRQHandler(void) {
+	HAL_DMA_IRQHandler(&dma1_struct);
+	// preverimo da se je prenos uspešno zaključil
+	if (dma1_struct.State == HAL_DMA_STATE_READY) {
+		blink = 0;
+	}
 }
 
 /**
