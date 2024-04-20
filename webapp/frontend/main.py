@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
 from flet.matplotlib_chart import MatplotlibChart
-import com_reader.py
+import com_reader
 matplotlib.use("svg")
 
 
@@ -39,6 +39,7 @@ def main(page: ft.Page):
     x2_data, y2_data = [], []
     x3_data, y3_data = [], []
     x4_data, y4_data = [], []
+    temp = [[]]
 
     start_time = time.time()
 
@@ -68,33 +69,25 @@ def main(page: ft.Page):
 
     page.update()
 
-    def update_graph1():
-        x1_data.append(time.time() - start_time)  
-        y1_data.append(generate_data())           
+    def update_graph1():        
         ax1.clear()
         ax1.plot(x1_data, y1_data)
         ax1.set_xlabel('Time (s)')
         ax1.set_ylabel('Poraba')
 
-    def update_graph2():
-        x2_data.append(time.time() - start_time)  
-        y2_data.append(generate_data())           
+    def update_graph2():          
         ax2.clear()
         ax2.plot(x2_data, y2_data)
         ax2.set_xlabel('Time (s)')
         ax2.set_ylabel('Poraba')
 
-    def update_graph3():
-        x3_data.append(time.time() - start_time)  
-        y3_data.append(generate_data())           
+    def update_graph3():           
         ax3.clear()
         ax3.plot(x3_data, y3_data)
         ax3.set_xlabel('Time (s)')
         ax3.set_ylabel('Poraba')
 
-    def update_graph4():
-        x4_data.append(time.time() - start_time)  
-        y4_data.append(generate_data())           
+    def update_graph4():        
         ax4.clear()
         ax4.plot(x4_data, y4_data)
         ax4.set_xlabel('Time (s)')
@@ -111,9 +104,21 @@ def main(page: ft.Page):
         graf3.update()
         graf4.update()
 
+    def handle_data():
+        for i in range(len(temp)):
+            x1_data.append(time.time() - start_time)  
+            y1_data.append(temp[i][0])
+            x2_data.append(time.time() - start_time)  
+            y2_data.append(temp[i][1]) 
+            x3_data.append(time.time() - start_time)  
+            y3_data.append(temp[i][2]) 
+            x4_data.append(time.time() - start_time)  
+            y4_data.append(temp[i][3]) 
+
     while True:
         time.sleep(1)
-        #get_data()
+        temp = com_reader.get_data()
+        handle_data()
         graph_handler()
         
 
