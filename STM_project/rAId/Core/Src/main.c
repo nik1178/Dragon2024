@@ -27,6 +27,7 @@
 /* USER CODE BEGIN Includes */
 #include "stm32h750b_discovery_qspi.h"
 #include "stm32h750b_discovery_sdram.h"
+#include "stm32h750b_discovery.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -82,11 +83,32 @@ const osThreadAttr_t videoTask_attributes = {
 };
 /* USER CODE BEGIN PV */
 
+// receiving messages
+osThreadId_t ReceiveMessageTaskHandle;
+const osThreadAttr_t ReceiveMessageTask_attributes = {
+  .name = "ReceiveMessageTask",
+  .stack_size = 512 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+
+
+// sending queries
+osThreadId_t SendQueryTaskHandle;
+const osThreadAttr_t SendQueryTask_attributes = {
+  .name = "SendQueryTask",
+  .stack_size = 512 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+
+// add message queues
+extern osMessageQueueId_t mid_2Model_Queue;
+osMessageQueueId_t mid_OBD2MsgQueue;
+
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-static void MPU_Initialize(void);
 static void MPU_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_MDMA_Init(void);
@@ -101,6 +123,9 @@ extern void TouchGFX_Task(void *argument);
 extern void videoTaskFunc(void *argument);
 
 /* USER CODE BEGIN PFP */
+
+void ReceiveMessageTask(void *argument);
+void SendQueryTask(void *argument);
 
 /* USER CODE END PFP */
 
@@ -119,6 +144,9 @@ int main(void)
 
   /* USER CODE END 1 */
 
+  /* MPU Configuration--------------------------------------------------------*/
+  MPU_Config();
+
   /* Enable I-Cache---------------------------------------------------------*/
   SCB_EnableICache();
 
@@ -129,9 +157,6 @@ int main(void)
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
-
-  /* MPU Configuration--------------------------------------------------------*/
-  MPU_Config();
 
   /* USER CODE BEGIN Init */
 
@@ -159,6 +184,18 @@ int main(void)
   MX_TouchGFX_PreOSInit();
   /* USER CODE BEGIN 2 */
 
+  BSP_LED_Init(LED_GREEN);
+  BSP_LED_Init(LED_RED);
+
+  BSP_LED_Off(LED_GREEN);
+  BSP_LED_Off(LED_RED);
+
+  if (FDCAN1_Config() != HAL_OK) {
+  	 Error_Handler();
+  }
+
+  BSP_LED_On(LED_GREEN);
+
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -178,6 +215,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
+  mid_OBD2MsgQueue = osMessageQueueNew(16, sizeof(CAN_OBD2_MSGQUEUE_OBJ_t), NULL);
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -192,6 +230,8 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+  ReceiveMessageTaskHandle = osThreadNew(ReceiveMessageTask, NULL, &ReceiveMessageTask_attributes);
+  SendQueryTaskHandle = osThreadNew(SendQueryTask, NULL, &SendQueryTask_attributes);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -232,6 +272,10 @@ void SystemClock_Config(void)
 
   while(!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY)) {}
 
+  /** Macro to configure the PLL clock source
+  */
+  __HAL_RCC_PLL_PLLSOURCE_CONFIG(RCC_PLLSOURCE_HSE);
+
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
@@ -242,7 +286,8 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLM = 5;
   RCC_OscInitStruct.PLL.PLLN = 160;
   RCC_OscInitStruct.PLL.PLLP = 2;
-  RCC_OscInitStruct.PLL.PLLQ = 4;
+  //RCC_OscInitStruct.PLL.PLLQ = 4;  // to je bila original nastavitev
+  RCC_OscInitStruct.PLL.PLLQ = 20;  /* fdcan_ker_ck = 40 MHz */
   RCC_OscInitStruct.PLL.PLLR = 2;
   RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_2;
   RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOWIDE;
@@ -551,8 +596,6 @@ static void MX_FMC_Init(void)
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
-/* USER CODE BEGIN MX_GPIO_Init_1 */
-/* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOK_CLK_ENABLE();
@@ -623,11 +666,137 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(MCU_ACTIVE_GPIO_Port, &GPIO_InitStruct);
 
-/* USER CODE BEGIN MX_GPIO_Init_2 */
-/* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
+
+void ReceiveMessageTask(void *argument)
+{
+  CAN_OBD2_MSGQUEUE_OBJ_t queue_data;
+  osStatus_t status = osOK;
+  OBDQueueElement_t OBD2Data;
+  uint8_t pid;
+  float fvalue = 0.0;
+  uint32_t uvalue = 0;
+
+  /* Infinite loop */
+  for(;;)
+  {
+	  status = osMessageQueueGet(mid_OBD2MsgQueue, &queue_data, NULL, 0U);
+	  if (status == osOK){
+		  pid = queue_data.pid;
+		  switch (pid){
+		  case OBD2_PID_VEHICLE_SPEED:
+			uvalue = OBD2DecodeVehicleSpeed(queue_data.OBDData);
+			OBD2Data.pid = OBD2_PID_VEHICLE_SPEED;
+			OBD2Data.uwData = uvalue;
+			break;
+		  case OBD2_PID_ENGINE_SPEED:
+		  	uvalue = OBD2DecodeEngineSpeed(queue_data.OBDData);
+		  	OBD2Data.pid = OBD2_PID_ENGINE_SPEED;
+		  	OBD2Data.uwData = uvalue;
+		  	break;
+		  case OBD2_PID_ENGINE_LOAD:
+		  	fvalue = OBD2DecodeEngineLoad(queue_data.OBDData);
+		  	OBD2Data.pid = OBD2_PID_ENGINE_LOAD;
+		  	OBD2Data.fData = fvalue;
+		  	break;
+
+		  case OBD2_PID_ENGINE_COOLANT_TEMP:
+			uvalue = OBD2DecodeEngineCoolantTemp(queue_data.OBDData);
+		  	OBD2Data.pid = OBD2_PID_ENGINE_COOLANT_TEMP;
+		  	OBD2Data.uwData = uvalue;
+		  	break;
+		  case OBD2_PID_INTAKE_AIR_TEMP:
+		    uvalue = OBD2DecodeIntakeAirTemp(queue_data.OBDData);
+		  	OBD2Data.pid = OBD2_PID_INTAKE_AIR_TEMP;
+		  	OBD2Data.uwData = uvalue;
+		  	break;
+		  case OBD2_PID_AMBIENT_AIR_TEMP:
+		  	uvalue = OBD2DecodeIntakeAirTemp(queue_data.OBDData);
+		  	OBD2Data.pid = OBD2_PID_AMBIENT_AIR_TEMP;
+		  	OBD2Data.uwData = uvalue;
+		  	break;
+		  case OBD2_PID_FUEL_TANK_LEVEL_INPUT:
+		  	uvalue = OBD2DecodeFuelTankLevelInput(queue_data.OBDData);
+		  	OBD2Data.pid = OBD2_PID_FUEL_TANK_LEVEL_INPUT;
+			OBD2Data.uwData = uvalue;
+			break;
+		  case OBD2_PID_ABS_CATALYST_TEMP:
+			fvalue = OBD2DecodeCatalystTemperature(queue_data.OBDData);
+			OBD2Data.pid = OBD2_PID_ABS_CATALYST_TEMP;
+			OBD2Data.fData = fvalue;
+			break;
+		  case OBD2_PID_ABS_BARO_PRESSURE:
+			uvalue = OBD2DecodeAbsoluteBarometricPressure(queue_data.OBDData);
+			OBD2Data.pid = OBD2_PID_ABS_BARO_PRESSURE;
+			OBD2Data.uwData = uvalue;
+			break;
+		  case OBD2_PID_INTAKE_MANIFOLD_PRESSURE:
+			uvalue = OBD2DecodeManifoldPressure(queue_data.OBDData);
+			OBD2Data.pid = OBD2_PID_INTAKE_MANIFOLD_PRESSURE;
+			OBD2Data.uwData = uvalue;
+			break;
+
+		  default:
+			OBD2Data.pid = OBD2_PID_UNSUPPORTED;
+			OBD2Data.uwData = 0U;
+			break;
+		  }
+
+		  // Send the message to the GUI Model:
+		  osMessageQueuePut(mid_2Model_Queue, &OBD2Data, 0U, 0U);
+	  }
+  }
+
+}
+
+void SendQueryTask(void *argument)
+{
+
+  /* Infinite loop */
+  for(;;)
+  {
+	  OBD2_SendQuery(0x01, OBD2_PID_VEHICLE_SPEED);
+	  osDelay(DELAY);
+	  OBD2_SendQuery(0x01, OBD2_PID_ENGINE_SPEED);
+	  osDelay(DELAY);
+	  OBD2_SendQuery(0x01, OBD2_PID_ENGINE_LOAD);
+	  osDelay(DELAY);
+
+	  OBD2_SendQuery(0x01, OBD2_PID_ENGINE_SPEED);
+	  osDelay(DELAY);
+	  OBD2_SendQuery(0x01, OBD2_PID_VEHICLE_SPEED);
+	  osDelay(DELAY);
+
+	  OBD2_SendQuery(0x01, OBD2_PID_ENGINE_COOLANT_TEMP);
+	  osDelay(DELAY);
+	  OBD2_SendQuery(0x01, OBD2_PID_INTAKE_AIR_TEMP);
+	  osDelay(DELAY);
+	  OBD2_SendQuery(0x01, OBD2_PID_AMBIENT_AIR_TEMP);  
+	  osDelay(DELAY);
+
+	  OBD2_SendQuery(0x01, OBD2_PID_ENGINE_SPEED);
+	  osDelay(DELAY);
+	  OBD2_SendQuery(0x01, OBD2_PID_VEHICLE_SPEED);
+	  osDelay(DELAY);
+
+	  OBD2_SendQuery(0x01, OBD2_PID_INTAKE_MANIFOLD_PRESSURE);
+	  osDelay(DELAY);
+	  OBD2_SendQuery(0x01, OBD2_PID_ABS_CATALYST_TEMP);
+	  osDelay(DELAY);
+	  OBD2_SendQuery(0x01, OBD2_PID_ABS_BARO_PRESSURE);
+	  osDelay(DELAY);
+
+	  OBD2_SendQuery(0x01, OBD2_PID_ENGINE_SPEED);
+	  osDelay(DELAY);
+	  OBD2_SendQuery(0x01, OBD2_PID_VEHICLE_SPEED);
+	  osDelay(DELAY);
+	  OBD2_SendQuery(0x01, OBD2_PID_FUEL_TANK_LEVEL_INPUT);
+	  osDelay(DELAY);
+  }
+
+}
 
 /* USER CODE END 4 */
 
@@ -644,7 +813,10 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(100);
+	BSP_LED_On(LED_GREEN);
+    osDelay(1000);
+    BSP_LED_Off(LED_GREEN);
+    osDelay(1000);
   }
   /* USER CODE END 5 */
 }
@@ -751,6 +923,12 @@ void Error_Handler(void)
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
 
+  for(;;) {
+	  BSP_LED_On(LED_RED);
+	  HAL_Delay(50);
+	  BSP_LED_Off(LED_RED);
+	  HAL_Delay(50);
+  }
   /* USER CODE END Error_Handler_Debug */
 }
 

@@ -1,0 +1,12 @@
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:104:18:virtual void touchgfx::Screen::afterTransition()	0	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	0	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	0	static
+../../TouchGFX/gui/include/gui/homescreen_screen/HomeScreenView.hpp:11:13:HomeScreenView::~HomeScreenView()	8	static
+../../TouchGFX/gui/include/gui/homescreen_screen/HomeScreenView.hpp:11:13:virtual HomeScreenView::~HomeScreenView()	8	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/homescreen_screen/HomeScreenView.cpp:3:1:HomeScreenView::HomeScreenView()	8	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/homescreen_screen/HomeScreenView.cpp:8:6:virtual void HomeScreenView::setupScreen()	8	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/homescreen_screen/HomeScreenView.cpp:36:6:void HomeScreenView::updateRPMs(uint32_t)	16	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/homescreen_screen/HomeScreenView.cpp:18:6:virtual void HomeScreenView::tearDownScreen()	16	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/homescreen_screen/HomeScreenView.cpp:26:6:void HomeScreenView::updateSpeed(uint32_t)	16	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/homescreen_screen/HomeScreenView.cpp:42:6:void HomeScreenView::updateCoolantTemp(uint32_t)	0	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/homescreen_screen/HomeScreenView.cpp:47:6:void HomeScreenView::updateFuelTankLevel(uint32_t)	0	static

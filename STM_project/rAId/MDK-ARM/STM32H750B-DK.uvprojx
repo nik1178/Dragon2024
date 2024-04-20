@@ -353,7 +353,7 @@
               <MiscControls />
               <Define />
               <Undefine />
-              <IncludePath>..\Core\Inc;../Core/Inc</IncludePath>
+              <IncludePath>..\Core\Inc</IncludePath>
             </VariousControls>
           </Aads>
           <LDads>

@@ -1,0 +1,17 @@
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:104:18:virtual void touchgfx::Screen::afterTransition()	0	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	0	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	0	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/detailsscreen_screen/DetailsScreenView.cpp:13:6:virtual void DetailsScreenView::tearDownScreen()	0	static
+../../TouchGFX/gui/include/gui/detailsscreen_screen/DetailsScreenView.hpp:12:13:DetailsScreenView::~DetailsScreenView()	8	static
+../../TouchGFX/gui/include/gui/detailsscreen_screen/DetailsScreenView.hpp:12:13:virtual DetailsScreenView::~DetailsScreenView()	8	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/detailsscreen_screen/DetailsScreenView.cpp:3:1:DetailsScreenView::DetailsScreenView()	8	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/detailsscreen_screen/DetailsScreenView.cpp:8:6:virtual void DetailsScreenView::setupScreen()	0	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/detailsscreen_screen/DetailsScreenView.cpp:18:6:void DetailsScreenView::updateSpeed(uint32_t)	8	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/detailsscreen_screen/DetailsScreenView.cpp:25:6:void DetailsScreenView::updateRPM(uint32_t)	8	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/detailsscreen_screen/DetailsScreenView.cpp:32:6:void DetailsScreenView::updateEngineLoad(float)	16	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/detailsscreen_screen/DetailsScreenView.cpp:39:6:void DetailsScreenView::updateCoolantTemp(uint32_t)	8	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/detailsscreen_screen/DetailsScreenView.cpp:46:6:void DetailsScreenView::updateIntakeAirTemp(uint32_t)	8	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/detailsscreen_screen/DetailsScreenView.cpp:53:6:void DetailsScreenView::updateAmbientAirTemp(uint32_t)	8	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/detailsscreen_screen/DetailsScreenView.cpp:60:6:void DetailsScreenView::updateCatalystTemp(float)	16	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/detailsscreen_screen/DetailsScreenView.cpp:67:6:void DetailsScreenView::updateBarometricPressure(uint32_t)	8	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/detailsscreen_screen/DetailsScreenView.cpp:74:6:void DetailsScreenView::updateManifoldPressure(uint32_t)	8	static

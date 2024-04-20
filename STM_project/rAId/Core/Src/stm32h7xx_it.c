@@ -65,6 +65,8 @@ extern TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN EV */
 
+extern FDCAN_HandleTypeDef 				hfdcan;
+
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -235,5 +237,10 @@ void MDMA_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
+
+void FDCAN1_IT0_IRQHandler(void)
+{
+  HAL_FDCAN_IRQHandler(&hfdcan);
+}
 
 /* USER CODE END 1 */

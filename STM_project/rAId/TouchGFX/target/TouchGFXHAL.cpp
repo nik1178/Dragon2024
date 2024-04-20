@@ -29,11 +29,8 @@
 
 using namespace touchgfx;
 
-namespace
-{
 LOCATION_PRAGMA("TouchGFX_Framebuffer")
 uint32_t animationBuffer[(480 * 272 * 2 + 3) / 4] LOCATION_ATTRIBUTE_NOLOAD("TouchGFX_Framebuffer");
-}
 
 void TouchGFXHAL::initialize()
 {
@@ -44,7 +41,7 @@ void TouchGFXHAL::initialize()
     // Please note, HAL::initialize() must be called to initialize the framework.
 
     TouchGFXGeneratedHAL::initialize();
-    setAnimationStorage((void*)animationBuffer);    // Add animation storage
+    setFrameBufferStartAddresses((void*)frameBuffer0, (void*)frameBuffer1, (void*)animationBuffer);
     instrumentation.init();
     setMCUInstrumentation(&instrumentation);
     enableMCULoadCalculation(true);

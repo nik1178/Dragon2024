@@ -78,7 +78,7 @@ typedef struct
 #define BUS_I2C4_SDA_AF                        GPIO_AF4_I2C4
 
 #ifndef BUS_I2C4_FREQUENCY
-   #define BUS_I2C4_FREQUENCY  400000U /* Frequency of I2Cn in Hz*/
+   #define BUS_I2C4_FREQUENCY  100000U /* Frequency of I2Cn = 100 KHz*/
 #endif
 
 /**

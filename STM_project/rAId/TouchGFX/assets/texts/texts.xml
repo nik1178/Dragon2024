@@ -5,10 +5,112 @@
   </Languages>
   <Texts>
     <TextGroup Id="Group1" />
+    <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_1ZNT" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_E8UZ" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt; hPa</Translation>
+      </Text>
+      <Text Id="__SingleUse_NMU8" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_6MDP" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt; kPa</Translation>
+      </Text>
+      <Text Id="__SingleUse_FZ3G" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_F8SU" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt; °C</Translation>
+      </Text>
+      <Text Id="__SingleUse_1VDV" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Barometric pressure</Translation>
+      </Text>
+      <Text Id="__SingleUse_4547" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Intake manifold pressure</Translation>
+      </Text>
+      <Text Id="__SingleUse_TW4D" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Catalyst temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_0UQ0" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">X</Translation>
+      </Text>
+      <Text Id="__SingleUse_ZLVJ" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Challenge sponsors</Translation>
+      </Text>
+      <Text Id="__SingleUse_FK1R" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_RS5G" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt; km/h</Translation>
+      </Text>
+      <Text Id="__SingleUse_55AI" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">trr/min x 1000</Translation>
+      </Text>
+      <Text Id="__SingleUse_TJJR" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_3B5Y" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt; °C</Translation>
+      </Text>
+      <Text Id="__SingleUse_PGXL" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_8SKY" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt; °C</Translation>
+      </Text>
+      <Text Id="__SingleUse_VWCY" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_5GX5" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt; °C</Translation>
+      </Text>
+      <Text Id="__SingleUse_U5AC" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">Ambient temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_42B1" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">Intake air temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_UTMM" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">Coolant temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_WL4J" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_D2D6" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt; %</Translation>
+      </Text>
+      <Text Id="__SingleUse_W1Q5" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_5COD" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_9BVT" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">Engine load</Translation>
+      </Text>
+      <Text Id="__SingleUse_NDPG" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">RPM</Translation>
+      </Text>
+      <Text Id="__SingleUse_O704" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="__SingleUse_MK8R" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt; km/h</Translation>
+      </Text>
+      <Text Id="__SingleUse_VWPI" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Speed</Translation>
+      </Text>
+      <Text Id="__SingleUse_A7QO" Alignment="Center" TypographyId="Title">
+        <Translation Language="GB">rAId</Translation>
+      </Text>
+    </TextGroup>
   </Texts>
   <Typographies>
-    <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Large" Font="verdana.ttf" Size="40" Bpp="4" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacters="&quot;0123456789.+-&quot;" WildcardCharacterRanges="0-9" />
+    <Typography Id="Large" Font="verdana.ttf" Size="40" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9" />
+    <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9" />
+    <Typography Id="Title" Font="segoeuib.ttf" Size="30" Bpp="4" Direction="LTR" FallbackCharacter="?" />
   </Typographies>
 </TextDatabase>

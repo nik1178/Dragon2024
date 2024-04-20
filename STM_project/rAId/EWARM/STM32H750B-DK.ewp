@@ -288,7 +288,7 @@
         <option>
           <name>CCAllowList</name>
           <version>1</version>
-          <state>11011110</state>
+          <state>11111110</state>
         </option>
         <option>
           <name>CCDebugInfo</name>
@@ -640,7 +640,7 @@
         </option>
         <option>
           <name>AUserIncludes</name>
-          <state>$PROJ_DIR$/../Core/Inc</state>
+          <state>$PROJ_DIR$\..\Core\Inc</state>
         </option>
         <option>
           <name>AExtraOptionsCheckV2</name>

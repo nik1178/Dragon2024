@@ -50,14 +50,12 @@
 #include <errno.h>
 #include <stdio.h>
 
-#include <sys/types.h> // Added as a workaround for Bugzilla 158966
-
 /* Variables */
 extern int errno;
 register char * stack_ptr asm("sp");
 
 /* Functions */
-
+#define caddr_t void *
 /**
  _sbrk
  Increase program data space. Malloc and related functions depend on this
@@ -82,4 +80,3 @@ caddr_t _sbrk(int incr)
 
 	return (caddr_t) prev_heap_end;
 }
-
