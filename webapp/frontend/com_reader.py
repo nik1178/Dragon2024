@@ -2,7 +2,7 @@ import serial
 import threading
 
 # Define global variables
-ser = serial.Serial("COM7", 115200, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS, timeout=1)
+# ser = serial.Serial("COM7", 115200, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS, timeout=1)
 all_data = []
 new_data = []
 
@@ -13,41 +13,60 @@ def receive_data():
     while True:
         ser.write(b'1')
         cc=str(ser.readline())
+        print(cc)
         if len(cc) < 1:
             continue
         
-        split_table = cc.split("\\x")
-        split_table.pop(0)
+        cc = cc[2:-2]
         
-        for i,_ in enumerate(split_table):
-            split_table[i] = split_table[i].replace("\\", "")
-            split_table[i] = split_table[i].replace("t", "")
-            split_table[i] = split_table[i].replace("'", "")
+        split_table = cc.split("\\")
+        if len(split_table) < 2:
+            continue
+        
+        print(split_table)
+        for i,x in enumerate(split_table):
+            if len(x) < 1:
+                split_table.pop(i)
+                continue
+            if x[0] == 'x':
+                split_table[i] = int(x[1:], 16)
+            else:
+                split_table[i] = int(x)
         
         data = []
         for i,x in enumerate(split_table):
-            data.append(int(x, 16))
+            data.append(int(x))
         
         new_data.append(data)
         
         print(data)
-# def fake_data():
-#     while True:
-#         cc="b'\\x05\\xc7\\x22'\\\\t"
-#         if len(cc) < 1:
-#             continue
+
+def fake_data():
+    while True:
+        cc="b'\\x05\\xc7\\x22\\t"
+        cc = cc[2:-2]
         
-#         split_table = cc.split("\\x")
-#         split_table.pop(0)
+        split_table = cc.split("\\")
+        if len(split_table) < 2:
+            continue
         
-#         for i,_ in enumerate(split_table):
-#             split_table[i] = split_table[i].replace("\\", "")
-#             split_table[i] = split_table[i].replace("t", "")
-#             split_table[i] = split_table[i].replace("'", "")
+        print(split_table)
+        for i,x in enumerate(split_table):
+            if len(x) < 1:
+                split_table.pop(i)
+                continue
+            if x[0] == 'x':
+                split_table[i] = int(x[1:], 16)
+            else:
+                split_table[i] = int(x)
         
-#         data = []
-#         for i,x in enumerate(split_table):
-#             data.append(int(x, 16))
+        data = []
+        for i,x in enumerate(split_table):
+            data.append(x)
+        
+        new_data.append(data)
+        
+        print(data)
 
 def get_data():
     global new_data
@@ -55,10 +74,12 @@ def get_data():
     all_data.append(new_data)
     temp = new_data
     new_data = []
+    if len(temp) < 1:
+        return [[-1,-1,-1,-1]]
     return temp
 
 
 # Start of main code
-t1 = threading.Thread(target=receive_data)
+t1 = threading.Thread(target=fake_data)
 t1.start()
 
