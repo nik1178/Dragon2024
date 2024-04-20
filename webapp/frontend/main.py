@@ -113,7 +113,7 @@ def main(page: ft.Page):
 
     while True:
         time.sleep(1)
-        get_data()
+        #get_data()
         graph_handler()
         
 
