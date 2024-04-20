@@ -5,7 +5,9 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
 from flet.matplotlib_chart import MatplotlibChart
+import threading
 import com_reader
+
 matplotlib.use("svg")
 
 
@@ -105,6 +107,7 @@ def main(page: ft.Page):
         graf4.update()
 
     def handle_data():
+        temp = com_reader.get_data()
         for i in range(len(temp)):
             x1_data.append(time.time() - start_time)  
             y1_data.append(temp[i][0])
@@ -114,16 +117,18 @@ def main(page: ft.Page):
             y3_data.append(temp[i][2]) 
             x4_data.append(time.time() - start_time)  
             y4_data.append(temp[i][3]) 
-
-    while True:
-        time.sleep(1)
-        #temp = com_reader.get_data()
-        temp = com_reader.get_data()
-        handle_data()
         graph_handler()
-        
-
-    print("Ona mene pali")
+   
+    def set_interval(func, sec):
+        def func_wrapper():
+            set_interval(func, sec)
+            func()
+        t = threading.Timer(sec, func_wrapper)
+        t.start()
+        return t
+    
+    set_interval(handle_data, 1)
+    print("Ona mene pali kurve so mi tu")
     
     
 
