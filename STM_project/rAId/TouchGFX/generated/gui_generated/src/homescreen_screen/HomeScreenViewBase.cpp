@@ -62,12 +62,11 @@ HomeScreenViewBase::HomeScreenViewBase() :
     BasicInfoBox.setBorderSize(4);
     add(BasicInfoBox);
 
-    speedText.setXY(298, 199);
+    speedText.setPosition(284, 200, 101, 25);
     speedText.setColor(touchgfx::Color::getColorFromRGB(39, 68, 87));
     speedText.setLinespacing(0);
     Unicode::snprintf(speedTextBuffer, SPEEDTEXT_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_FK1R).getText());
     speedText.setWildcard(speedTextBuffer);
-    speedText.resizeToCurrentText();
     speedText.setTypedText(touchgfx::TypedText(T___SINGLEUSE_RS5G));
     add(speedText);
 

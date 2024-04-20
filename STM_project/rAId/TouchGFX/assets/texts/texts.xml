@@ -42,7 +42,7 @@
       <Text Id="__SingleUse_FK1R" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">0</Translation>
       </Text>
-      <Text Id="__SingleUse_RS5G" Alignment="Left" TypographyId="Default">
+      <Text Id="__SingleUse_RS5G" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">&lt;value&gt; km/h</Translation>
       </Text>
       <Text Id="__SingleUse_55AI" Alignment="Left" TypographyId="Small">
