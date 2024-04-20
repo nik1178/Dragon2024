@@ -15,12 +15,14 @@ def receive_data():
     while True:
         ser.write(b'1')
         cc = ser.readline()
-        print(cc)
-        if len(cc) < 1:
-            continue
         
-        temp = int
+        print(temp)
+        integers = []
+
+        for byte in temp:
+            integers.append(byte)
         
+        new_data.append(integers)
 
 def fake_data():
     while True:
@@ -35,8 +37,10 @@ def get_data():
     new_data = []
     if len(temp) < 1:
         return [[-1,-1,-1,-1]]
-    else if len(temp[0]) < 1:
-        return [[-1,-1,-1,-1]]
+    for i,x in enumerate(temp):
+        if len(x) != 4:
+            temp[i] = [-1,-1,-1,-1]
+        
     return temp
 
 
