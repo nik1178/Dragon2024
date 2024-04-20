@@ -114,10 +114,11 @@ def main(page: ft.Page):
             y3_data.append(temp[i][2]) 
             x4_data.append(time.time() - start_time)  
             y4_data.append(temp[i][3]) 
-    
+
     while True:
         time.sleep(1)
-        temp = com_reader.get_data()
+        #temp = com_reader.get_data()
+        temp = com_reader.fake_data()
         handle_data()
         graph_handler()
         
