@@ -7,19 +7,22 @@ import time
 #ser = serial.Serial("COM7", 115200, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS, timeout=1)
 all_data = []
 new_data = []
+terminate = False
 
 # Start of function definitions
 def receive_data():
     global new_data
+    global terminate
     
     while True:
-        ser.write(b'1')
-        cc = ser.readline()
+        if terminate:
+            break
         
-        print(temp)
+        cc = ser.read(5)
+        
         integers = []
 
-        for byte in temp:
+        for byte in cc:
             integers.append(byte)
         
         new_data.append(integers)
