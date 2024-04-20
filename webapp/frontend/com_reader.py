@@ -15,7 +15,7 @@ def receive_data():
     while True:
         ser.write(b'1')
         cc = ser.readline()
-        print(cc)
+        #print(cc)
         if len(cc) < 1:
             continue
         
@@ -35,7 +35,7 @@ def get_data():
     new_data = []
     if len(temp) < 1:
         return [[-1,-1,-1,-1]]
-    else if len(temp[0]) < 1:
+    elif (len(temp[0]) < 1):
         return [[-1,-1,-1,-1]]
     return temp
 
