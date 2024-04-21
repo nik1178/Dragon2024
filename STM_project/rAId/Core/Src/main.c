@@ -857,7 +857,7 @@ void ReceiveDataTask(void *argument) {
 		if (osMessageQueueGet(oilTemp_Queue, &value, NULL, 0U) == osOK) {
 			oilTemp = value;
 		}
-		osDelay(500);
+		osDelay(50);
 	}
 }
 
@@ -869,7 +869,7 @@ void SendDataToUARTTask(void *argument) {
 		podatki[2] = engLoad;
 		podatki[3] = oilTemp;
 		HAL_UART_Transmit(&uart, podatki, sizeof(podatki), HAL_MAX_DELAY);
-		osDelay(50);
+		osDelay(250);
 	}
 }
 
