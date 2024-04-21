@@ -1,10 +1,3 @@
-/*
- * fdcan.h
- *
- *  Created on: Jan 4, 2023
- *      Author: patriciobulic
- */
-
 #ifndef INC_FDCAN_H_
 #define INC_FDCAN_H_
 

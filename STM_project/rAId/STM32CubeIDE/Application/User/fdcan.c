@@ -1,11 +1,3 @@
-/*
- * fdcan.c
- *
- *  Created on: Jan 4, 2023
- *      Author: patriciobulic
- */
-
-
 /* Includes ------------------------------------------------------------------*/
 #include "fdcan.h"
 #include "cmsis_os.h"
@@ -44,7 +36,6 @@ HAL_StatusTypeDef FDCAN1_Config(void)
     Bit_length                 = 80 tq = 1 ns
     Bit_rate                   = 500 kBit/s
 
-    P.B. 4.1.2022
     t_FDCLK = 40 Mhz
     bit_time = 1/BIT_RATE = 1/500000  = 2000ns
     tq = NOMPRE * t_FDCLK = 1 * 25
