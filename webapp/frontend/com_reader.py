@@ -34,7 +34,9 @@ def receive_data():
         for byte in cc:
             integers.append(byte)
         
-        new_data = integers
+        integers[1]*=255
+        
+        new_data = [integers]
 
 def fake_data():
     global new_data

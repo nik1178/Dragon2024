@@ -5,7 +5,7 @@ import time
 import os
 
 API_KEY = open("./webapp/frontend/API_KEY.txt", "r").read()
-
+# API_KEY=14
 client = OpenAI(
     api_key=API_KEY,
 )

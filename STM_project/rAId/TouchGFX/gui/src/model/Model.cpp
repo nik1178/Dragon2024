@@ -59,7 +59,7 @@ void Model::setRPM(uint32_t newRPM)
 
 void Model::setEngLoad(float newEngLoad)
 {
-	crrEngLoad = (uint32_t) (newEngLoad * 100);
+	crrEngLoad = (uint32_t) newEngLoad;
 	uint8_t vrednost = (uint8_t) crrEngLoad;
 	osMessageQueuePut(engLoad_Queue, &vrednost, 0U, 0U);
 }
