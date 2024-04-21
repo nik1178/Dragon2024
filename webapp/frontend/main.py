@@ -10,6 +10,9 @@ import com_reader
 from pymongo.mongo_client import MongoClient
 import analyze
 import sys
+from flet_core.control_event import ControlEvent
+import json
+from flow_py_sdk import flow_client
 
 matplotlib.use("svg")
 score = 100
@@ -17,6 +20,8 @@ score = 100
 
 def main(page: ft.Page):
     
+    
+
     global stop_bool
     stop_bool = False
     global username
@@ -52,6 +57,106 @@ def main(page: ft.Page):
     )
 
     page.update()
+
+    def append_data_to_json(file_path, new_data):
+        # Try to load existing data
+        try:
+            with open(file_path, "r") as file:
+                data = json.load(file)
+                assert isinstance(data, list)  # Ensure it is a list as expected
+        except FileNotFoundError:
+            data = []  # If not found, start with an empty list
+        except json.JSONDecodeError:
+            raise Exception("File is not in valid JSON format")
+        
+        # Append new data to the list
+        data.append(new_data)
+
+        # Write updated data back to the file
+        with open(file_path, "w") as file:
+            json.dump(data, file, indent=4)
+
+    def checkjson(new_data):
+        filename = 'login.json'  # Path to the JSON file containing the user data
+
+        # Load JSON data from the file
+        try:
+            with open(filename, 'r') as file:
+                users = json.load(file)
+        except FileNotFoundError:
+            print("File not found.")
+            return
+        except json.JSONDecodeError:
+            print("Error decoding JSON.")
+            return
+
+        # Iterate through each user in the list
+        for user in users:
+            # Retrieve 'username' or 'name' based on available keys
+            username = user.get('name') or user.get('username')  # Handle variations in key naming
+            password = user['password']  # It is assumed that every entry will have a 'password' key
+
+            print(f"Username: {username}, Password: {password}")
+            if username == new_data['username'] and password == new_data['password']:
+                return 0
+            elif username == new_data['username']:
+                return 1
+        
+        return 2
+
+    filename = 'login.json'
+
+    text_username: TextField = ft.TextField(label="Username", text_align=ft.TextAlign.LEFT, width=200)
+    text_password: TextField = ft.TextField(label="Password", text_align=ft.TextAlign.LEFT, width=200, password=True)
+    checkbox_signup: Checkbox = ft.Checkbox(label="I agree to stuff", value=False)
+    button_submit: ElevatedButton = ft.ElevatedButton("Sign up", width=200, bgcolor="blue", color="white", disabled=True)
+
+    def validate(e: ControlEvent) -> None:
+        if all([text_username.value, text_password.value, checkbox_signup.value]):
+            button_submit.disabled = False
+        else:
+            button_submit.disabled = True
+
+        page.update()
+
+    def submit(e: ControlEvent) -> None:
+        global username
+        print("Username:", text_username.value)
+        print("Password:", text_password.value)
+        new_user = {"username": text_username.value, "password": text_password.value}
+        
+        if (checkjson(new_user) == 0):
+            print("welcome")
+            username = text_username.value
+            text_username.remove()
+            text_password.remove()
+            checkbox_signup.remove()
+            button_submit.remove()
+            page.update()
+        elif (checkjson(new_user) == 1):
+            #wrong password
+            print("wrong password")
+            page.clean()
+
+            page.add(
+                ft.Row(
+                    controls=[ft.Text(value=f"Wrong password")],
+                    alignment=ft.MainAxisAlignment.CENTER
+                )
+            )
+        else:
+            #create new user
+            append_data_to_json(filename, new_user)
+
+            print("welcome")
+
+    
+    checkbox_signup.on_change = validate
+    text_username.on_change = validate
+    text_password.on_change = validate
+    button_submit.on_click = submit
+
+    
 
     def send_data(e):
         global stop_bool
@@ -95,13 +200,26 @@ def main(page: ft.Page):
         button_stop.text = txt_stop
         button_stop.update()
 
+    def view(e):
+        try:
+            uri = "mongodb+srv://dragon:dragonhack123@dh.xbqmeva.mongodb.net/?retryWrites=true&w=majority&appName=DH"
+            client = MongoClient(uri)
+            db = client["dh"]
+            collection = db["raid"]
+            insert_result = collection.insert_one(json_data)
+        except Exception as e:
+            print("An error occurred:", e)
+    
+
     def login(e):
         global txt_login
         global username
         global button_login
+        
         if username == "notloggendin":
-            username = "TUKI PRIDE IME USERNAMA"
             txt_login = "Logout"
+            page.route = "/auth0"
+            page.update()
         else:
             username = "notloggendin"
             txt_login = "Login"
@@ -135,13 +253,28 @@ def main(page: ft.Page):
 
     button_stop = ft.ElevatedButton(text=txt_stop, on_click=send_data)
     button_login = ft.ElevatedButton(text=txt_login, on_click=login)
+    button_history = ft.ElevatedButton(text="View history", on_click=view)
 
     page.add(
         ft.Row([
             ft.Text("Click on this button to start analysis: ", size=20, weight=ft.FontWeight.W_500),
         ]),
         button_stop,
-        button_login
+        button_login,
+        button_history
+    )
+    page.add(
+        ft.Row(
+            controls=[
+                ft.Column(
+                    [text_username,
+                     text_password,
+                     checkbox_signup,
+                     button_submit]
+                )
+            ],
+            alignment=ft.MainAxisAlignment.CENTER
+        )
     )
 
 
@@ -256,6 +389,13 @@ def main(page: ft.Page):
     previous_analysis_time = time.time()
     set_interval(handle_data, 1)
 
-    set_interval(handle_data, 1)
-ft.app(target=main)
-message.txt
+    def go_with_the_flow():
+        #posl tolk kot je score coinov v wallet od userja
+        print("sending reward " + score)
+        #async with flow_client(
+            #host=ctx.access_node_host, port=ctx.access_node_port
+        #) as client:
+            #block = await client.get_latest_block(is_sealed=False)
+            
+
+ft.app(target=main, route_url_strategy="path")

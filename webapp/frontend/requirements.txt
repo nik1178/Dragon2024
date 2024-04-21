@@ -3,3 +3,4 @@ matplotlib==3.8.4
 numpy==1.26.4
 pyserial==3.5
 pymongo==4.6.3
+flow_py_sdk==1.3.0
