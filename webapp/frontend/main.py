@@ -28,6 +28,8 @@ def main(page: ft.Page):
     global x1_data, x2_data, x3_data, x4_data
     global y1_data, y2_data, y3_data, y4_data
     
+    global previous_analysis_time
+    
 
     page.theme_mode = ft.ThemeMode.SYSTEM
     page.title = "rAId"
@@ -179,7 +181,15 @@ def main(page: ft.Page):
     def handle_data():
         global x1_data, x2_data, x3_data, x4_data
         global y1_data, y2_data, y3_data, y4_data
+        global previous_analysis_time
+        
         if stop_bool == True: 
+            
+            # Check if it's time for real time analysis
+            if time.time() - previous_analysis_time > 30:
+                previous_analysis_time = time.time()
+                AI_response = analyze.real_time_analyze(y1_data, y2_data, y3_data, y4_data)
+            
             temp = com_reader.get_data()
             for i in range(len(temp)):
                 x1_data.append(time.time() - start_time)  
@@ -207,6 +217,7 @@ def main(page: ft.Page):
         t.start()
         return t
     
+    previous_analysis_time = time.time()
     set_interval(handle_data, 1)
 
 ft.app(target=main)
