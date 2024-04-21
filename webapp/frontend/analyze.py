@@ -25,7 +25,7 @@ def text_to_speech(text):
 
     response.stream_to_file("speech.mp3")
     
-    time.sleep(5)
+    time.sleep(2)
     
     print('playing sound using  playsound')
     try:
@@ -61,7 +61,28 @@ def analyze(speed, engine_rpm, engine_load, oil_temp):
     message_text = response.choices[0].message.content
     print("ChatGPT response:")
     print(message_text)
+    
     return message_text
+
+def gameify(text):
+    global client
+    
+    gameification_instructions = "Based on this response to someones driving, give them a rating of +1 or -1. Don't say anything else except the number. If you think they did well, give them a +1. If you think they did poorly, give them a -1. This was the description on their driving:"
+    
+    response = client.chat.completions.create(
+        model="gpt-4-turbo",
+        messages=[{"role": "system", "content": (gameification_instructions + text)}]
+    )
+    message_text = response.choices[0].message.content
+    
+    print("ChatGPT response:")
+    print(message_text)
+    
+    if message_text == "+1":
+        return 1
+    else :
+        return -0.5
+    
 
 real_time_instructions = """You will analyze a ride in real time. You will receive a bunch of data points spread apart by one second. These points represent a cars parameters over time. These parameters are listed later. Your task is to analyze the data and provide small tips on how to improve fuel efficiency to drive as eco friendly as possible. Tell the driver if they are doing better or worse than before. If you notice high rpm, high speed, etc. Recommend what can be done to improve fuel efficiency. REMEMBER THAT ALL DATA IS SPACED ONLY ONE SECOND APART. THE RESPONSES SHOULD BE SHORT AND SWEET, 50 words or less. Make the response suited for speech. The parameters you will be analyzing are:"""
 real_time_instructions += parameters
@@ -93,4 +114,7 @@ def real_time_analyze(speed, engine_rpm, engine_load, oil_temp):
     text_to_speech(message_text)
     print("Finished real time analysis")
     
-    return message_text
+    # Get +1 or -0.5
+    return gameify(message_text)
+    
+    # return message_text 

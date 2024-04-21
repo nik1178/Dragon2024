@@ -29,6 +29,7 @@ def main(page: ft.Page):
     global y1_data, y2_data, y3_data, y4_data
     
     global previous_analysis_time
+    score = 100
     
 
     page.theme_mode = ft.ThemeMode.SYSTEM
@@ -189,6 +190,8 @@ def main(page: ft.Page):
             if time.time() - previous_analysis_time > 30:
                 previous_analysis_time = time.time()
                 AI_response = analyze.real_time_analyze(y1_data, y2_data, y3_data, y4_data)
+                if score + AI_response > 0 and score + AI_response < 100:
+                    score += AI_response
             
             temp = com_reader.get_data()
             for i in range(len(temp)):
