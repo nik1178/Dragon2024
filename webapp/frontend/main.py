@@ -11,6 +11,7 @@ from pymongo.mongo_client import MongoClient
 import analyze
 
 matplotlib.use("svg")
+score = 100
 
 
 def main(page: ft.Page):
@@ -29,7 +30,7 @@ def main(page: ft.Page):
     global y1_data, y2_data, y3_data, y4_data
     
     global previous_analysis_time
-    score = 100
+    global score
     
 
     page.theme_mode = ft.ThemeMode.SYSTEM
@@ -183,6 +184,7 @@ def main(page: ft.Page):
         global x1_data, x2_data, x3_data, x4_data
         global y1_data, y2_data, y3_data, y4_data
         global previous_analysis_time
+        global score
         
         if stop_bool == True: 
             
@@ -192,6 +194,7 @@ def main(page: ft.Page):
                 AI_response = analyze.real_time_analyze(y1_data, y2_data, y3_data, y4_data)
                 if score + AI_response > 0 and score + AI_response < 100:
                     score += AI_response
+                print("Score: ", score)
             
             temp = com_reader.get_data()
             for i in range(len(temp)):
@@ -211,7 +214,6 @@ def main(page: ft.Page):
             x4_data, y4_data = [], []
             graph_handler()
         
-   
     def set_interval(func, sec):
         def func_wrapper():
             set_interval(func, sec)
