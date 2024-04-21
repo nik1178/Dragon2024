@@ -317,7 +317,7 @@ def main(page: ft.Page):
         ax1.plot(x_data, y1_data, color="#a2faa2")
         ax1.set_ylim(0, 255)
         ax1.set_xlabel('Time [s]', color="white")
-        ax1.set_ylabel('Hitrost [km / h]', color="white")
+        ax1.set_ylabel('Velocity [km / h]', color="white")
         ax1.xaxis.label.set_color('white')
         ax1.tick_params(axis='x', colors='white')
         ax1.tick_params(axis='y', colors='white')
