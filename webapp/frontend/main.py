@@ -8,7 +8,8 @@ from flet.matplotlib_chart import MatplotlibChart
 import threading
 import com_reader
 from pymongo.mongo_client import MongoClient
-import analyze
+#import analyze
+import sys
 
 matplotlib.use("svg")
 
@@ -30,8 +31,11 @@ def main(page: ft.Page):
     
     global previous_analysis_time
     
+    global start_time
+    start_time = time.time()
 
-    page.theme_mode = ft.ThemeMode.SYSTEM
+    #page.theme_mode = ft.ThemeMode.SYSTEM
+    page.bgcolor = "#101210"
     page.title = "rAId"
     page.scroll = "adaptive"
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
@@ -53,10 +57,14 @@ def main(page: ft.Page):
         global x1_data, x2_data, x3_data, x4_data
         global y1_data, y2_data, y3_data, y4_data
         global username
+        global start_time
+        start_time = time.time()
+        
         
         if stop_bool:
             stop_bool = False
             txt_stop="Start ride"
+            #analysis(x1_data, y1_data, x2_data, y2_data, x3_data, y3_data, x4_data, y4_data)
             
             json_data = {
                 "username": username,
@@ -83,6 +91,7 @@ def main(page: ft.Page):
             stop_bool = True
             txt_stop="End & Save ride"
         
+        #AI_response = analyze.analyze(y1_data, y2_data, y3_data, y4_data)
         
         button_stop.text = txt_stop
         button_stop.update()
@@ -110,13 +119,10 @@ def main(page: ft.Page):
     x3_data, y3_data = [], []
     x4_data, y4_data = [], []
 
-    start_time = time.time()
-
-    
-    graf1 = MatplotlibChart(fig1, isolated=True, expand=True)
-    graf2 = MatplotlibChart(fig2, isolated=True, expand=True)
-    graf3 = MatplotlibChart(fig3, isolated=True, expand=True)
-    graf4 = MatplotlibChart(fig4, isolated=True, expand=True)
+    graf1 = MatplotlibChart(fig1, isolated=True, expand=True, transparent=True)
+    graf2 = MatplotlibChart(fig2, isolated=True, expand=True, transparent=True)
+    graf3 = MatplotlibChart(fig3, isolated=True, expand=True, transparent=True)
+    graf4 = MatplotlibChart(fig4, isolated=True, expand=True, transparent=True)
     
     page.add(
         ft.Row([
@@ -137,7 +143,7 @@ def main(page: ft.Page):
             ft.Text("Click on this button to start analysis: ", size=20, weight=ft.FontWeight.W_500),
         ]),
         button_stop,
-        button_login,
+        button_login
     )
 
 
@@ -145,27 +151,57 @@ def main(page: ft.Page):
 
     def update_graph1():        
         ax1.clear()
-        ax1.plot(x1_data, y1_data)
-        ax1.set_xlabel('Time (s)')
-        ax1.set_ylabel('Poraba')
+        ax1.plot(x1_data, y1_data, color="#a2faa2")
+        ax1.set_ylim(0, 255)
+        ax1.set_xlabel('Time [s]', color="white")
+        ax1.set_ylabel('Hitrost [km / h]', color="white")
+        ax1.xaxis.label.set_color('white')
+        ax1.tick_params(axis='x', colors='white')
+        ax1.tick_params(axis='y', colors='white')
+        ax1.spines['bottom'].set_color('white')  
+        ax1.spines['left'].set_color('white') 
+        ax1.spines['right'].set_color('#101210')  
+        ax1.spines['top'].set_color('#101210')    
+
 
     def update_graph2():          
         ax2.clear()
-        ax2.plot(x2_data, y2_data)
-        ax2.set_xlabel('Time (s)')
-        ax2.set_ylabel('Obrati')
+        ax2.plot(x2_data, y2_data, color="#ff879d")
+        ax2.set_ylim(0, 8000)
+        ax2.set_xlabel('Time [s]', color="white")
+        ax2.set_ylabel('RPM Engine', color="white")
+        ax2.tick_params(axis='x', colors='white')
+        ax2.tick_params(axis='y', colors='white')
+        ax2.spines['bottom'].set_color('white')  
+        ax2.spines['left'].set_color('white') 
+        ax2.spines['right'].set_color('#101210')  
+        ax2.spines['top'].set_color('#101210')   
 
     def update_graph3():           
         ax3.clear()
-        ax3.plot(x3_data, y3_data)
-        ax3.set_xlabel('Time (s)')
-        ax3.set_ylabel('Poraba')
+        ax3.plot(x3_data, y3_data, color="#a3c2ff")
+        ax3.set_ylim(0, 100)
+        ax3.set_xlabel('Time [s]', color="white")
+        ax3.set_ylabel('Engine load [%]', color="white")
+        ax3.tick_params(axis='x', colors='white')
+        ax3.tick_params(axis='y', colors='white')
+        ax3.spines['bottom'].set_color('white')  
+        ax3.spines['left'].set_color('white') 
+        ax3.spines['right'].set_color('#101210') 
+        ax3.spines['top'].set_color('#101210')   
 
     def update_graph4():        
         ax4.clear()
-        ax4.plot(x4_data, y4_data)
-        ax4.set_xlabel('Time (s)')
-        ax4.set_ylabel('Poraba')
+        ax4.plot(x4_data, y4_data, color="#ffeda3")
+        ax4.set_ylim(0, 180)
+        ax4.set_xlabel('Time [s]', color="white")
+        ax4.set_ylabel('Oil Temperature [C]', color="white")
+        ax4.tick_params(axis='x', colors='white')
+        ax4.tick_params(axis='y', colors='white')
+        ax4.spines['bottom'].set_color('white')  
+        ax4.spines['left'].set_color('white') 
+        ax4.spines['right'].set_color('#101210')   
+        ax4.spines['top'].set_color('#101210')   
 
     def graph_handler(): 
         time.sleep(1)
@@ -207,12 +243,15 @@ def main(page: ft.Page):
             x3_data, y3_data = [], []
             x4_data, y4_data = [], []
             graph_handler()
+
         
    
     def set_interval(func, sec):
         def func_wrapper():
-            set_interval(func, sec)
-            func()
+            while True:
+                func()
+                time.sleep(1)
+            
         t = threading.Timer(sec, func_wrapper)
         t.start()
         return t
@@ -220,4 +259,6 @@ def main(page: ft.Page):
     previous_analysis_time = time.time()
     set_interval(handle_data, 1)
 
+    set_interval(handle_data, 1)
 ft.app(target=main)
+message.txt
