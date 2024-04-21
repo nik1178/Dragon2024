@@ -313,7 +313,7 @@ def main(page: ft.Page):
     def update_graph1():        
         ax1.clear()
         ax1.plot(x_data, y1_data, color="#a2faa2")
-        ax1.set_ylim(0, 255)
+        ax1.set_ylim(0, 150)
         ax1.set_xlabel('Time [s]', color="black")
         ax1.set_ylabel('Velocity [km / h]', color="black")
         ax1.xaxis.label.set_color('black')
