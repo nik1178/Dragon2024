@@ -27,7 +27,7 @@ def main(page: ft.Page):
     txt_login = "Login"
     global button_stop
     global button_login
-    global x1_data, x2_data, x3_data, x4_data
+    global x_data
     global y1_data, y2_data, y3_data, y4_data
     
     global previous_analysis_time
@@ -56,7 +56,7 @@ def main(page: ft.Page):
     def send_data(e):
         global stop_bool
         global txt_stop, button_stop
-        global x1_data, x2_data, x3_data, x4_data
+        global x_data
         global y1_data, y2_data, y3_data, y4_data
         global username
         global start_time
@@ -70,10 +70,7 @@ def main(page: ft.Page):
             
             json_data = {
                 "username": username,
-                "x1": x1_data,
-                "x2": x2_data,
-                "x3": x3_data,
-                "x4": x4_data,
+                "x": x_data,
                 "y1": y1_data,
                 "y2": y2_data,
                 "y3": y3_data,
@@ -116,10 +113,9 @@ def main(page: ft.Page):
     fig2, ax2 = plt.subplots()
     fig3, ax3 = plt.subplots()
     fig4, ax4 = plt.subplots()
-    x1_data, y1_data = [], []
-    x2_data, y2_data = [], []
-    x3_data, y3_data = [], []
-    x4_data, y4_data = [], []
+    x_data = []
+    y1_data, y2_data = [], []
+    y4_data, y3_data = [], []
 
     graf1 = MatplotlibChart(fig1, isolated=True, expand=True, transparent=True)
     graf2 = MatplotlibChart(fig2, isolated=True, expand=True, transparent=True)
@@ -153,7 +149,7 @@ def main(page: ft.Page):
 
     def update_graph1():        
         ax1.clear()
-        ax1.plot(x1_data, y1_data, color="#a2faa2")
+        ax1.plot(x_data, y1_data, color="#a2faa2")
         ax1.set_ylim(0, 255)
         ax1.set_xlabel('Time [s]', color="white")
         ax1.set_ylabel('Hitrost [km / h]', color="white")
@@ -168,7 +164,7 @@ def main(page: ft.Page):
 
     def update_graph2():          
         ax2.clear()
-        ax2.plot(x2_data, y2_data, color="#ff879d")
+        ax2.plot(x_data, y2_data, color="#ff879d")
         ax2.set_ylim(0, 8000)
         ax2.set_xlabel('Time [s]', color="white")
         ax2.set_ylabel('RPM Engine', color="white")
@@ -181,7 +177,7 @@ def main(page: ft.Page):
 
     def update_graph3():           
         ax3.clear()
-        ax3.plot(x3_data, y3_data, color="#a3c2ff")
+        ax3.plot(x_data, y3_data, color="#a3c2ff")
         ax3.set_ylim(0, 100)
         ax3.set_xlabel('Time [s]', color="white")
         ax3.set_ylabel('Engine load [%]', color="white")
@@ -194,7 +190,7 @@ def main(page: ft.Page):
 
     def update_graph4():        
         ax4.clear()
-        ax4.plot(x4_data, y4_data, color="#ffeda3")
+        ax4.plot(x_data, y4_data, color="#ffeda3")
         ax4.set_ylim(0, 180)
         ax4.set_xlabel('Time [s]', color="white")
         ax4.set_ylabel('Oil Temperature [C]', color="white")
@@ -217,7 +213,7 @@ def main(page: ft.Page):
         graf4.update()
 
     def handle_data():
-        global x1_data, x2_data, x3_data, x4_data
+        global x_data
         global y1_data, y2_data, y3_data, y4_data
         global previous_analysis_time
         global score
@@ -234,20 +230,16 @@ def main(page: ft.Page):
             
             temp = com_reader.get_data()
             for i in range(len(temp)):
-                x1_data.append(time.time() - start_time)  
+                x_data.append(time.time() - start_time)  
                 y1_data.append(temp[i][0])
-                x2_data.append(time.time() - start_time)  
                 y2_data.append(temp[i][1]) 
-                x3_data.append(time.time() - start_time)  
                 y3_data.append(temp[i][2]) 
-                x4_data.append(time.time() - start_time)  
                 y4_data.append(temp[i][3]) 
                 graph_handler()
         else:
-            x1_data, y1_data = [], []
-            x2_data, y2_data = [], []
-            x3_data, y3_data = [], []
-            x4_data, y4_data = [], []
+            x_data = []
+            y1_data, y2_data = [], []
+            y4_data, y3_data = [], []
             graph_handler()
 
         
