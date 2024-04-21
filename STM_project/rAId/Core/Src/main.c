@@ -123,10 +123,10 @@ extern osMessageQueueId_t oilTemp_Queue;
 osMessageQueueId_t mid_OBD2MsgQueue;
 UART_HandleTypeDef uart = {0};
 
-uint8_t hitrost = 65;
-uint8_t obrati = 65;
-uint8_t engLoad = 65;
-uint8_t oilTemp = 65;
+uint8_t hitrost = 0;
+uint8_t obrati = 0;
+uint8_t engLoad = 0;
+uint8_t oilTemp = 0;
 
 /* USER CODE END PV */
 
@@ -857,7 +857,7 @@ void ReceiveDataTask(void *argument) {
 		if (osMessageQueueGet(oilTemp_Queue, &value, NULL, 0U) == osOK) {
 			oilTemp = value;
 		}
-		osDelay(50);
+		osDelay(500);
 	}
 }
 
@@ -869,7 +869,7 @@ void SendDataToUARTTask(void *argument) {
 		podatki[2] = engLoad;
 		podatki[3] = oilTemp;
 		HAL_UART_Transmit(&uart, podatki, sizeof(podatki), HAL_MAX_DELAY);
-		osDelay(50)
+		osDelay(50);
 	}
 }
 

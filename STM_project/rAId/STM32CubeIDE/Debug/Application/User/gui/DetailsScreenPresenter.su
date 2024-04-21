@@ -2,8 +2,8 @@
 ../../TouchGFX/gui/include/gui/detailsscreen_screen/DetailsScreenPresenter.hpp:30:13:DetailsScreenPresenter::~DetailsScreenPresenter()	0	static
 C:/TouchGFXProjects/rAId/TouchGFX/gui/src/detailsscreen_screen/DetailsScreenPresenter.cpp:10:6:virtual void DetailsScreenPresenter::activate()	0	static
 ../../TouchGFX/gui/include/gui/detailsscreen_screen/DetailsScreenPresenter.hpp:30:13:virtual DetailsScreenPresenter::~DetailsScreenPresenter()	8	static
-C:/TouchGFXProjects/rAId/TouchGFX/gui/src/detailsscreen_screen/DetailsScreenPresenter.cpp:20:6:virtual void DetailsScreenPresenter::updateDetailsScreen(OBDQueueElement_t*)	0	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/detailsscreen_screen/DetailsScreenPresenter.cpp:20:6:virtual void DetailsScreenPresenter::updateDetailsScreen(OBDQueueElement_t*)	16	static
 ../../TouchGFX/gui/include/gui/detailsscreen_screen/DetailsScreenPresenter.hpp:30:13:virtual void* DetailsScreenPresenter::_ZThn4_N22DetailsScreenPresenterD1Ev()	0	static
 ../../TouchGFX/gui/include/gui/detailsscreen_screen/DetailsScreenPresenter.hpp:30:13:virtual void* DetailsScreenPresenter::_ZThn4_N22DetailsScreenPresenterD0Ev()	16	static
-../../TouchGFX/gui/include/gui/detailsscreen_screen/DetailsScreenPresenter.hpp:33:10:virtual void DetailsScreenPresenter::_ZThn4_N22DetailsScreenPresenter19updateDetailsScreenEP17OBDQueueElement_t(OBDQueueElement_t*)	0	static
+../../TouchGFX/gui/include/gui/detailsscreen_screen/DetailsScreenPresenter.hpp:33:10:virtual void DetailsScreenPresenter::_ZThn4_N22DetailsScreenPresenter19updateDetailsScreenEP17OBDQueueElement_t(OBDQueueElement_t*)	16	static
 C:/TouchGFXProjects/rAId/TouchGFX/gui/src/detailsscreen_screen/DetailsScreenPresenter.cpp:4:1:DetailsScreenPresenter::DetailsScreenPresenter(DetailsScreenView&)	4	static

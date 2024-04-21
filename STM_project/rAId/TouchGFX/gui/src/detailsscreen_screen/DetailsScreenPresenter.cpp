@@ -22,18 +22,22 @@ void DetailsScreenPresenter::updateDetailsScreen(OBDQueueElement_t* pOBD2Data)
 	switch(pOBD2Data->pid){
 		case OBD2_PID_VEHICLE_SPEED:
 			view.updateSpeed(pOBD2Data->uwData);
+			model->setSpeed(pOBD2Data->uwData);
 			break;
 
 		case OBD2_PID_ENGINE_SPEED:
 			view.updateRPM(pOBD2Data->uwData);
+			model->setRPM(pOBD2Data->uwData);
 			break;
 
 		case OBD2_PID_ENGINE_LOAD:
 			view.updateEngineLoad(pOBD2Data->fData);
+			model->setEngLoad(pOBD2Data->fData);
 			break;
 
 		case OBD2_PID_ENGINE_COOLANT_TEMP:
 			view.updateCoolantTemp(pOBD2Data->uwData);
+			model->setOilTemp(pOBD2Data->uwData);
 			break;
 
 		case OBD2_PID_INTAKE_AIR_TEMP:

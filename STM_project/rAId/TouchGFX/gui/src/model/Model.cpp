@@ -57,9 +57,9 @@ void Model::setRPM(uint32_t newRPM)
 	osMessageQueuePut(obrati_Queue, &vrednost, 0U, 0U);
 }
 
-void Model::setEngLoad(uint32_t newEngLoad)
+void Model::setEngLoad(float newEngLoad)
 {
-	crrEngLoad = newEngLoad;
+	crrEngLoad = (uint32_t) (newEngLoad * 100);
 	uint8_t vrednost = (uint8_t) crrEngLoad;
 	osMessageQueuePut(engLoad_Queue, &vrednost, 0U, 0U);
 }

@@ -31,6 +31,10 @@ public:
 
     // we will update particular parts, not the whole screen
     void updateDetailsScreen(OBDQueueElement_t* pOBD2Data);
+    void sendBackSpeed(uint32_t newSpeed);
+    void sendBackRPM(uint32_t newRPM);
+    void sendBackEngLoad(uint32_t newEngLoad);
+    void sendBackOilTemp(uint32_t newOilTemp);
 
 
 private:

@@ -6,5 +6,5 @@ C:/TouchGFXProjects/rAId/TouchGFX/gui/src/model/Model.cpp:36:10:uint32_t Model::
 C:/TouchGFXProjects/rAId/TouchGFX/gui/src/model/Model.cpp:41:10:uint32_t Model::getRPM()	0	static
 C:/TouchGFXProjects/rAId/TouchGFX/gui/src/model/Model.cpp:46:6:void Model::setSpeed(uint32_t)	16	static
 C:/TouchGFXProjects/rAId/TouchGFX/gui/src/model/Model.cpp:53:6:void Model::setRPM(uint32_t)	16	static
-C:/TouchGFXProjects/rAId/TouchGFX/gui/src/model/Model.cpp:60:6:void Model::setEngLoad(uint32_t)	16	static
+C:/TouchGFXProjects/rAId/TouchGFX/gui/src/model/Model.cpp:60:6:void Model::setEngLoad(float)	16	static
 C:/TouchGFXProjects/rAId/TouchGFX/gui/src/model/Model.cpp:67:6:void Model::setOilTemp(uint32_t)	16	static

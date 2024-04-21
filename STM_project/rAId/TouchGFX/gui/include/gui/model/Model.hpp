@@ -25,7 +25,7 @@ public:
     // setters
     void setSpeed(uint32_t newSpeed);
     void setRPM(uint32_t newRPM);
-    void setEngLoad(uint32_t newEngLoad);
+    void setEngLoad(float newEngLoad);
     void setOilTemp(uint32_t newOilTemp);
 
 protected:
