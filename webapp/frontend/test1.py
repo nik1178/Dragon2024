@@ -1,8 +1,15 @@
-temp = b'\t\x01\x02\x03@'
-print(temp)
-integers = []
+import threading
 
-for byte in temp:
-    integers.append(byte)
+def do_sum():
+    print(1+1)
+
+def set_interval(func, sec):
+        def func_wrapper():
+            set_interval(func, sec)
+            func()
+        t = threading.Timer(sec, func_wrapper)
+        t.start()
+        print("HMMM")
+        return t
     
-print(integers)
+set_interval(do_sum, 1)

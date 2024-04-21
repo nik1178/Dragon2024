@@ -8,6 +8,7 @@ from flet.matplotlib_chart import MatplotlibChart
 import threading
 import com_reader
 from pymongo.mongo_client import MongoClient
+import analyze
 
 matplotlib.use("svg")
 
@@ -78,6 +79,8 @@ def main(page: ft.Page):
         else:
             stop_bool = True
             txt_stop="End & Save ride"
+        
+        AI_response = analyze.analyze(y1_data, y2_data, y3_data, y4_data)
         
         button_stop.text = txt_stop
         button_stop.update()
