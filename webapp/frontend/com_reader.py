@@ -4,7 +4,12 @@ import random
 import time
 
 # Define global variables
-#ser = serial.Serial("COM7", 115200, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS, timeout=1)
+ser = None
+try:
+    ser = serial.Serial("COM7", 115200, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS, timeout=1)
+except:
+    ser = None
+
 all_data = []
 new_data = []
 terminate = False
@@ -13,12 +18,16 @@ terminate = False
 def receive_data():
     global new_data
     global terminate
+    global ser
+    
+    if ser == None:
+        return
     
     while True:
         if terminate:
             break
         
-        cc = ser.read(5)
+        cc = ser.read(4)
         
         integers = []
 
@@ -28,13 +37,14 @@ def receive_data():
         new_data = integers
 
 def fake_data():
+    global new_data
     #while True:
-    new_data.append([random.randint(1,140),random.randint(1,140),random.randint(1,140),random.randint(1,140)])
+    new_data = [[random.randint(1,140),random.randint(1,140),random.randint(1,140),random.randint(1,140)]]
     
         #time.sleep(0.5)
 def get_data():
     global new_data
-    global all_data
+    # global all_data
     #all_data.append(new_data)
     # ti ne smes belezit podatkov ampak sam nove posiljas da jaz lah 
     # izbiram zacetek pa konec rida ker drgač bo meru k ne bo nic

@@ -26,8 +26,6 @@ def receive_data():
         for byte in cc:
             integers.append(byte)
         
-        integers[2] = int(integers[2]/2.55)
-        
         new_data.append(integers)
 
 def fake_data():

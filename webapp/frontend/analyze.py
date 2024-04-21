@@ -90,12 +90,19 @@ real_time_instructions += parameters
 real_time_messages = []
 real_time_messages.append({"role": "system", "content": (real_time_instructions)})
 
-def real_time_analyze(speed, engine_rpm, engine_load, oil_temp):
+def real_time_analyze(speed, engine_rpm, engine_load, oil_temp, annoying, score):
     global real_time_messages
     global client
     
     print("Real time analysis of data...")
-    data = "Current data: "
+    
+    annoying_prompt = ""
+    if annoying:
+        annoying_prompt = "Try to be as annoying and mean as possible. "
+    else:
+        annoying_prompt = "Try to be nice but stern."
+    
+    data = annoying_prompt + "Current data: "
     data += "speed: " + str(speed) + ", engine rpm: " + str(engine_rpm) + ", engine load: " + str(engine_load) + ", oil temperature: " + str(oil_temp)
     message={"role": "user", "content": (data)}
     real_time_messages.append(message)
@@ -115,6 +122,9 @@ def real_time_analyze(speed, engine_rpm, engine_load, oil_temp):
     print("Finished real time analysis")
     
     # Get +1 or -0.5
-    return gameify(message_text)
+    AI_response = gameify(message_text)
+    if score[0] + AI_response > 0 and score[0] + AI_response < 100:
+        score[0] += AI_response
+    print("Score: ", score)
     
     # return message_text 

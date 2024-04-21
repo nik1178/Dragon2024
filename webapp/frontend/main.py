@@ -1,3 +1,4 @@
+from flow_py_sdk import flow_client
 import flet as ft
 import time
 import matplotlib
@@ -12,7 +13,8 @@ import analyze
 import sys
 
 matplotlib.use("svg")
-score = 100
+score = [100]
+annoying = False
 
 
 def main(page: ft.Page):
@@ -32,9 +34,18 @@ def main(page: ft.Page):
     
     global previous_analysis_time
     global score
+    global annoying
     
     global start_time
     start_time = time.time()
+    
+    def go_with_the_flow():
+        #posl tolk kot je score coinov v wallet od userja
+        print("sending reward " + score)
+        #async with flow_client(
+            #host=ctx.access_node_host, port=ctx.access_node_port
+        #) as client:
+            #block = await client.get_latest_block(is_sealed=False)
 
     #page.theme_mode = ft.ThemeMode.SYSTEM
     page.bgcolor = "#101210"
@@ -50,7 +61,7 @@ def main(page: ft.Page):
         ft.Text("R", size=50, weight=ft.FontWeight.W_500, 
                 spans=[ft.TextSpan("AI", ft.TextStyle(size=50, weight=ft.FontWeight.W_700, color="#3c8062")), ft.TextSpan("d", ft.TextStyle(size=50, weight=ft.FontWeight.W_500))]),
     )
-
+    
     page.update()
 
     def send_data(e):
@@ -66,7 +77,6 @@ def main(page: ft.Page):
         if stop_bool:
             stop_bool = False
             txt_stop="Start ride"
-            analysis(y1_data, y2_data, y3_data, y4_data)
             
             json_data = {
                 "username": username,
@@ -80,6 +90,8 @@ def main(page: ft.Page):
                 "y4": y4_data
             }
             AI_response = analyze.analyze(y1_data, y2_data, y3_data, y4_data)
+            analysis_field.value = AI_response
+            page.update()
             try:
                 uri = "mongodb+srv://dragon:dragonhack123@dh.xbqmeva.mongodb.net/?retryWrites=true&w=majority&appName=DH"
                 client = MongoClient(uri)
@@ -90,6 +102,8 @@ def main(page: ft.Page):
                 print("An error occurred:", e)
     
         else:
+            analysis_field.value = ""
+            page.update()
             stop_bool = True
             txt_stop="End & Save ride"
         
@@ -111,6 +125,13 @@ def main(page: ft.Page):
         print(txt_login)
         button_login.text = txt_login
         button_login.update()
+        
+    def annoying_switch(e):
+        global annoying
+        if annoying:
+            annoying = False
+        else:
+            annoying = True
 
     fig1, ax1 = plt.subplots()
     fig2, ax2 = plt.subplots()
@@ -147,7 +168,18 @@ def main(page: ft.Page):
         button_stop,
         button_login
     )
-
+    
+    page.add(
+        ft.Switch(
+            label="Annoying", label_position=ft.LabelPosition.RIGHT,
+            on_change=annoying_switch
+        )
+    )
+    
+    score_label = ft.TextField(label="Score", disabled=True, value=str(score[0]))
+    page.add(score_label)
+    analysis_field = ft.TextField(label="Analysis", disabled=True, value="", multiline=True, max_lines=5555)
+    page.add(analysis_field)
 
     page.update()
 
@@ -221,18 +253,21 @@ def main(page: ft.Page):
         global y1_data, y2_data, y3_data, y4_data
         global previous_analysis_time
         global score
+        global annoying
         
         if stop_bool == True: 
             
             # Check if it's time for real time analysis
             if time.time() - previous_analysis_time > 30:
+                score_label.value = str(score[0])
+                page.update()
                 previous_analysis_time = time.time()
-                AI_response = analyze.real_time_analyze(y1_data, y2_data, y3_data, y4_data)
-                if score + AI_response > 0 and score + AI_response < 100:
-                    score += AI_response
-                print("Score: ", score)
+                t = threading.Thread(target=analyze.real_time_analyze, args=(y1_data, y2_data, y3_data, y4_data, annoying, score))
+                t.start()
+                
             
             temp = com_reader.get_data()
+            
             for i in range(len(temp)):
                 x1_data.append(time.time() - start_time)  
                 y1_data.append(temp[i][0])
@@ -248,6 +283,7 @@ def main(page: ft.Page):
             x2_data, y2_data = [], []
             x3_data, y3_data = [], []
             x4_data, y4_data = [], []
+            
             graph_handler()
 
         
@@ -263,7 +299,4 @@ def main(page: ft.Page):
     
     previous_analysis_time = time.time()
     set_interval(handle_data, 1)
-
-    set_interval(handle_data, 1)
 ft.app(target=main)
-message.txt
