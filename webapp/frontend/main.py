@@ -49,12 +49,20 @@ def main(page: ft.Page):
     loginchoice = 0 # 0 = not logged in, 1 = logged in
     
     def go_with_the_flow():
+        #0xc56c0e8de1c18b2c je source (1000 flow coins)
+        # destination je userjev address
         #posl tolk kot je score coinov v wallet od userja
+        #fcl.config()
+        #put("0xFUNGIBLETOKENADDRESS", "0xf233dcee88fe0abe")
         print("sending reward " + score)
-        #async with flow_client(
-            #host=ctx.access_node_host, port=ctx.access_node_port
-        #) as client:
-            #block = await client.get_latest_block(is_sealed=False)
+        '''const response = await fcl.send([
+        transferTokens({
+        proposer: fcl.currentUser().authorization,
+        authorization: fcl.currentUser().authorization,
+        payer: fcl.currentUser().authorization,
+        amount: score,
+        to: user
+        })'''
 
     #page.theme_mode = ft.ThemeMode.SYSTEM
     page.theme_mode = ft.ThemeMode.LIGHT

@@ -61,7 +61,7 @@ def get_data():
     #    return [[-1,-1,-1,-1]]
 
     # new_data = []
-    fake_data()
+    # fake_data()
     # temp = new_data
 
     return new_data
