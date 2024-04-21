@@ -14,6 +14,7 @@ import sys
 from flet_core.control_event import ControlEvent
 import json
 from flow_py_sdk import flow_client
+from flet import TextField, Checkbox, ElevatedButton
 
 matplotlib.use("svg")
 score = [100]
@@ -43,6 +44,9 @@ def main(page: ft.Page):
     
     global start_time
     start_time = time.time()
+
+    global loginchoice
+    loginchoice = 0 # 0 = not logged in, 1 = logged in
     
     def go_with_the_flow():
         #posl tolk kot je score coinov v wallet od userja
@@ -61,6 +65,9 @@ def main(page: ft.Page):
     page.fonts = {
         
     }
+
+    login_interface = ft.Card(visible=False)
+    login_text = ft.Text(size=15, weight=ft.FontWeight.W_500, text_align=ft.TextAlign.START)
 
     page.add(
         ft.Text("R", size=50, weight=ft.FontWeight.W_500, 
@@ -136,30 +143,20 @@ def main(page: ft.Page):
         print("Password:", text_password.value)
         new_user = {"username": text_username.value, "password": text_password.value}
         
-        if (checkjson(new_user) == 0):
-            print("welcome")
-            username = text_username.value
-            text_username.remove()
-            text_password.remove()
-            checkbox_signup.remove()
-            button_submit.remove()
+        if (checkjson(new_user) == 0): ### kle
+            login_interface.visible = False
+            login_text.value = "Welcome back " + text_username.value + ", here is a summary of all your rides:"
             page.update()
         elif (checkjson(new_user) == 1):
             #wrong password
-            print("wrong password")
-            page.clean()
-
-            page.add(
-                ft.Row(
-                    controls=[ft.Text(value=f"Wrong password")],
-                    alignment=ft.MainAxisAlignment.CENTER
-                )
-            )
+            login_text.value = "Wrong username or password, please try again"
+            page.update()
+            #page.clean()
         else:
             #create new user
+            login_text.value = "Welcome " + text_username.value + ", we will start tracking your rides"
             append_data_to_json(filename, new_user)
-
-            print("welcome")
+            page.update()
 
     
     checkbox_signup.on_change = validate
@@ -241,6 +238,32 @@ def main(page: ft.Page):
         button_login.text = txt_login
         button_login.update()
         
+    def loginbuttonfunction(e):
+        global loginchoice
+
+        if (loginchoice == 0):
+            login_interface.visible = True
+            login_interface.content=ft.Container(
+                        content=ft.Row(
+                            controls=[
+                                ft.Column(
+                                    [text_username,
+                                    text_password,
+                                    checkbox_signup,
+                                    button_submit]
+                                )
+                            ],
+                            alignment=ft.MainAxisAlignment.CENTER
+                        )
+                    )
+            page.update()
+            loginchoice = 1
+        else:
+            #ft.Card
+            login_interface.visible = False
+            loginchoice = 0
+            page.update()
+
     def annoying_switch(e):
         global annoying
         if annoying:
@@ -273,6 +296,7 @@ def main(page: ft.Page):
     )
 
     button_stop = ft.ElevatedButton(text=txt_stop, on_click=send_data)
+    button_loginchoice = ft.ElevatedButton(text="Log in/Sign up", on_click=loginbuttonfunction)
     button_login = ft.ElevatedButton(text=txt_login, on_click=login)
     button_history = ft.ElevatedButton(text="View history", on_click=view)
 
@@ -281,22 +305,17 @@ def main(page: ft.Page):
             ft.Text("Click on this button to start analysis: ", size=20, weight=ft.FontWeight.W_500),
         ]),
         button_stop,
-        button_login,
-        button_history
+        #button_login, #nevemkajto nrid
+        button_history,
+        ft.Row([
+            ft.Text("Click on this button to log in or sign up: ", size=20, weight=ft.FontWeight.W_500),
+        ]),
+        button_loginchoice,
+
+        login_interface,
+        ft.Row([login_text])
     )
-    page.add(
-        ft.Row(
-            controls=[
-                ft.Column(
-                    [text_username,
-                     text_password,
-                     checkbox_signup,
-                     button_submit]
-                )
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
-        )
-    )
+
     
     page.add(
         ft.Switch(
