@@ -6,8 +6,9 @@ import time
 # Define global variables
 ser = None
 try:
-    ser = serial.Serial("COM7", 115200, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS, timeout=1)
+    ser = serial.Serial("COM3", 115200, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS, timeout=1)
 except:
+    print("Serial port not found")
     ser = None
 
 all_data = []
@@ -21,6 +22,7 @@ def receive_data():
     global ser
     
     if ser == None:
+        print("Serial port not found")
         return
     
     while True:
@@ -35,6 +37,9 @@ def receive_data():
             integers.append(byte)
         
         integers[1]*=255
+
+
+        print(integers)
         
         new_data = [integers]
 
@@ -56,12 +61,13 @@ def get_data():
     #    return [[-1,-1,-1,-1]]
 
     # new_data = []
-    # fake_data()
+    fake_data()
     # temp = new_data
 
     return new_data
 
 
 # Start of main code
-#t1 = threading.Thread(target=fake_data)
-#t1.start()
+t1 = threading.Thread(target=receive_data)
+t1.start()
+print("Thread started")

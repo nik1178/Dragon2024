@@ -14,15 +14,15 @@ import sys
 from flet_core.control_event import ControlEvent
 import json
 from flow_py_sdk import flow_client
+from flet import TextField, Checkbox, ElevatedButton
 
 matplotlib.use("svg")
 score = [100]
 annoying = False
 
+line_width_graphs = 3
 
 def main(page: ft.Page):
-    
-    
 
     global stop_bool
     stop_bool = False
@@ -40,9 +40,13 @@ def main(page: ft.Page):
     global previous_analysis_time
     global score
     global annoying
+    global line_width_graphs
     
     global start_time
     start_time = time.time()
+
+    global loginchoice
+    loginchoice = 0 # 0 = not logged in, 1 = logged in
     
     def go_with_the_flow():
         #posl tolk kot je score coinov v wallet od userja
@@ -53,7 +57,7 @@ def main(page: ft.Page):
             #block = await client.get_latest_block(is_sealed=False)
 
     #page.theme_mode = ft.ThemeMode.SYSTEM
-    page.bgcolor = "#101210"
+    page.theme_mode = ft.ThemeMode.LIGHT
     page.title = "rAId"
     page.scroll = "adaptive"
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
@@ -61,6 +65,9 @@ def main(page: ft.Page):
     page.fonts = {
         
     }
+
+    login_interface = ft.Card(visible=False)
+    login_text = ft.Text(size=15, weight=ft.FontWeight.W_500, text_align=ft.TextAlign.START)
 
     page.add(
         ft.Text("R", size=50, weight=ft.FontWeight.W_500, 
@@ -136,30 +143,20 @@ def main(page: ft.Page):
         print("Password:", text_password.value)
         new_user = {"username": text_username.value, "password": text_password.value}
         
-        if (checkjson(new_user) == 0):
-            print("welcome")
-            username = text_username.value
-            text_username.remove()
-            text_password.remove()
-            checkbox_signup.remove()
-            button_submit.remove()
+        if (checkjson(new_user) == 0): ### kle
+            login_interface.visible = False
+            login_text.value = "Welcome back " + text_username.value + ", here is a summary of all your rides:"
             page.update()
         elif (checkjson(new_user) == 1):
             #wrong password
-            print("wrong password")
-            page.clean()
-
-            page.add(
-                ft.Row(
-                    controls=[ft.Text(value=f"Wrong password")],
-                    alignment=ft.MainAxisAlignment.CENTER
-                )
-            )
+            login_text.value = "Wrong username or password, please try again"
+            page.update()
+            #page.clean()
         else:
             #create new user
+            login_text.value = "Welcome " + text_username.value + ", we will start tracking your rides"
             append_data_to_json(filename, new_user)
-
-            print("welcome")
+            page.update()
 
     
     checkbox_signup.on_change = validate
@@ -241,6 +238,32 @@ def main(page: ft.Page):
         button_login.text = txt_login
         button_login.update()
         
+    def loginbuttonfunction(e):
+        global loginchoice
+
+        if (loginchoice == 0):
+            login_interface.visible = True
+            login_interface.content=ft.Container(
+                        content=ft.Row(
+                            controls=[
+                                ft.Column(
+                                    [text_username,
+                                    text_password,
+                                    checkbox_signup,
+                                    button_submit]
+                                )
+                            ],
+                            alignment=ft.MainAxisAlignment.CENTER
+                        )
+                    )
+            page.update()
+            loginchoice = 1
+        else:
+            #ft.Card
+            login_interface.visible = False
+            loginchoice = 0
+            page.update()
+
     def annoying_switch(e):
         global annoying
         if annoying:
@@ -273,6 +296,7 @@ def main(page: ft.Page):
     )
 
     button_stop = ft.ElevatedButton(text=txt_stop, on_click=send_data)
+    button_loginchoice = ft.ElevatedButton(text="Log in/Sign up", on_click=loginbuttonfunction)
     button_login = ft.ElevatedButton(text=txt_login, on_click=login)
     button_history = ft.ElevatedButton(text="View history", on_click=view)
 
@@ -281,22 +305,17 @@ def main(page: ft.Page):
             ft.Text("Click on this button to start analysis: ", size=20, weight=ft.FontWeight.W_500),
         ]),
         button_stop,
-        button_login,
-        button_history
+        #button_login, #nevemkajto nrid
+        button_history,
+        ft.Row([
+            ft.Text("Click on this button to log in or sign up: ", size=20, weight=ft.FontWeight.W_500),
+        ]),
+        button_loginchoice,
+
+        login_interface,
+        ft.Row([login_text])
     )
-    page.add(
-        ft.Row(
-            controls=[
-                ft.Column(
-                    [text_username,
-                     text_password,
-                     checkbox_signup,
-                     button_submit]
-                )
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
-        )
-    )
+
     
     page.add(
         ft.Switch(
@@ -314,57 +333,57 @@ def main(page: ft.Page):
 
     def update_graph1():        
         ax1.clear()
-        ax1.plot(x_data, y1_data, color="#a2faa2")
-        ax1.set_ylim(0, 255)
-        ax1.set_xlabel('Time [s]', color="white")
-        ax1.set_ylabel('Velocity [km / h]', color="white")
-        ax1.xaxis.label.set_color('white')
-        ax1.tick_params(axis='x', colors='white')
-        ax1.tick_params(axis='y', colors='white')
-        ax1.spines['bottom'].set_color('white')  
-        ax1.spines['left'].set_color('white') 
-        ax1.spines['right'].set_color('#101210')  
-        ax1.spines['top'].set_color('#101210')    
+        ax1.plot(x_data, y1_data, color="#a2faa2", linewidth=line_width_graphs)
+        ax1.set_ylim(0, 150)
+        ax1.set_xlabel('Time [s]', color="black")
+        ax1.set_ylabel('Velocity [km / h]', color="black")
+        ax1.xaxis.label.set_color('black')
+        ax1.tick_params(axis='x', colors='black')
+        ax1.tick_params(axis='y', colors='black')
+        ax1.spines['bottom'].set_color('black')  
+        ax1.spines['left'].set_color('black') 
+        ax1.spines['right'].set_color('white')  
+        ax1.spines['top'].set_color('white')    
 
 
     def update_graph2():          
         ax2.clear()
-        ax2.plot(x_data, y2_data, color="#ff879d")
+        ax2.plot(x_data, y2_data, color="#ff879d", linewidth=line_width_graphs)
         ax2.set_ylim(0, 8000)
-        ax2.set_xlabel('Time [s]', color="white")
-        ax2.set_ylabel('RPM Engine', color="white")
-        ax2.tick_params(axis='x', colors='white')
-        ax2.tick_params(axis='y', colors='white')
-        ax2.spines['bottom'].set_color('white')  
-        ax2.spines['left'].set_color('white') 
-        ax2.spines['right'].set_color('#101210')  
-        ax2.spines['top'].set_color('#101210')   
+        ax2.set_xlabel('Time [s]', color="black")
+        ax2.set_ylabel('RPM Engine', color="black")
+        ax2.tick_params(axis='x', colors='black')
+        ax2.tick_params(axis='y', colors='black')
+        ax2.spines['bottom'].set_color('black')  
+        ax2.spines['left'].set_color('black') 
+        ax2.spines['right'].set_color('white')  
+        ax2.spines['top'].set_color('white')   
 
     def update_graph3():           
         ax3.clear()
-        ax3.plot(x_data, y3_data, color="#a3c2ff")
+        ax3.plot(x_data, y3_data, color="#a3c2ff", linewidth=line_width_graphs)
         ax3.set_ylim(0, 100)
-        ax3.set_xlabel('Time [s]', color="white")
-        ax3.set_ylabel('Engine load [%]', color="white")
-        ax3.tick_params(axis='x', colors='white')
-        ax3.tick_params(axis='y', colors='white')
-        ax3.spines['bottom'].set_color('white')  
-        ax3.spines['left'].set_color('white') 
-        ax3.spines['right'].set_color('#101210') 
-        ax3.spines['top'].set_color('#101210')   
+        ax3.set_xlabel('Time [s]', color="black")
+        ax3.set_ylabel('Engine load [%]', color="black")
+        ax3.tick_params(axis='x', colors='black')
+        ax3.tick_params(axis='y', colors='black')
+        ax3.spines['bottom'].set_color('black')  
+        ax3.spines['left'].set_color('black') 
+        ax3.spines['right'].set_color('white') 
+        ax3.spines['top'].set_color('white')   
 
     def update_graph4():        
         ax4.clear()
-        ax4.plot(x_data, y4_data, color="#ffeda3")
+        ax4.plot(x_data, y4_data, color="#ffeda3", linewidth=line_width_graphs)
         ax4.set_ylim(0, 180)
-        ax4.set_xlabel('Time [s]', color="white")
-        ax4.set_ylabel('Oil Temperature [C]', color="white")
-        ax4.tick_params(axis='x', colors='white')
-        ax4.tick_params(axis='y', colors='white')
-        ax4.spines['bottom'].set_color('white')  
-        ax4.spines['left'].set_color('white') 
-        ax4.spines['right'].set_color('#101210')   
-        ax4.spines['top'].set_color('#101210')   
+        ax4.set_xlabel('Time [s]', color="black")
+        ax4.set_ylabel('Oil Temperature [C]', color="black")
+        ax4.tick_params(axis='x', colors='black')
+        ax4.tick_params(axis='y', colors='black')
+        ax4.spines['bottom'].set_color('black')  
+        ax4.spines['left'].set_color('black') 
+        ax4.spines['right'].set_color('white')   
+        ax4.spines['top'].set_color('white')   
 
     def graph_handler(): 
         time.sleep(1)
