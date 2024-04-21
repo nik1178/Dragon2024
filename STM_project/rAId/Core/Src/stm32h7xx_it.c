@@ -87,14 +87,6 @@ void NMI_Handler(void)
   /* USER CODE END NonMaskableInt_IRQn 1 */
 }
 
-void DMA1_Stream0_IRQHandler(void) {
-	HAL_DMA_IRQHandler(&dma1_struct);
-	// preverimo da se je prenos uspešno zaključil
-	if (dma1_struct.State == HAL_DMA_STATE_READY) {
-		blink = 0;
-	}
-}
-
 /**
   * @brief This function handles Hard fault interrupt.
   */

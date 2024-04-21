@@ -42,8 +42,9 @@ Drivers/BSP/STM32H750B-DK/stm32h750b_discovery_ts.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_fmc.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
- ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
- ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
+ ../../Core/Inc/stm32h7xx_hal_uart.h \
+ ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h \
+ ../../Core/Inc/stm32h7xx_hal_uart_ex.h \
  C:/TouchGFXProjects/rAId/Drivers/BSP/STM32H750B-DK/stm32h750b_discovery_errno.h \
  C:/TouchGFXProjects/rAId/Drivers/BSP/STM32H750B-DK/../Components/ft5336/ft5336.h \
  C:/TouchGFXProjects/rAId/Drivers/BSP/STM32H750B-DK/../Components/ft5336/ft5336_reg.h \
@@ -92,8 +93,9 @@ C:/TouchGFXProjects/rAId/Drivers/BSP/STM32H750B-DK/stm32h750b_discovery_ts.h:
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_fmc.h:
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h:
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h:
-../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h:
-../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
+../../Core/Inc/stm32h7xx_hal_uart.h:
+../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:
+../../Core/Inc/stm32h7xx_hal_uart_ex.h:
 C:/TouchGFXProjects/rAId/Drivers/BSP/STM32H750B-DK/stm32h750b_discovery_errno.h:
 C:/TouchGFXProjects/rAId/Drivers/BSP/STM32H750B-DK/../Components/ft5336/ft5336.h:
 C:/TouchGFXProjects/rAId/Drivers/BSP/STM32H750B-DK/../Components/ft5336/ft5336_reg.h:

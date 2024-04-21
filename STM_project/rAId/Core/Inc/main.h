@@ -43,7 +43,7 @@ extern "C" {
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-#define DELAY 70
+#define DELAY 60
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/

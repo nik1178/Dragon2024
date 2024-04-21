@@ -91,7 +91,6 @@ const osThreadAttr_t ReceiveMessageTask_attributes = {
   .priority = (osPriority_t) osPriorityNormal,
 };
 
-
 // sending queries
 osThreadId_t SendQueryTaskHandle;
 const osThreadAttr_t SendQueryTask_attributes = {
@@ -100,13 +99,34 @@ const osThreadAttr_t SendQueryTask_attributes = {
   .priority = (osPriority_t) osPriorityNormal,
 };
 
+// receive data from model
+osThreadId_t ReceiveDataTaskHandle;
+const osThreadAttr_t ReceiveDataTask_attributes = {
+  .name = "ReceiveDataTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+// send data via uart
+osThreadId_t SendDataToUARTTaskHandle;
+const osThreadAttr_t SendDataToUARTTask_attributes = {
+  .name = "SendDataToUARTTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+
 // add message queues
 extern osMessageQueueId_t mid_2Model_Queue;
+extern osMessageQueueId_t hitrost_Queue;
+extern osMessageQueueId_t obrati_Queue;
+extern osMessageQueueId_t engLoad_Queue;
+extern osMessageQueueId_t oilTemp_Queue;
 osMessageQueueId_t mid_OBD2MsgQueue;
-DMA_HandleTypeDef dma1_struct = {0};
 UART_HandleTypeDef uart = {0};
-uint8_t blink = 1;
-uint8_t txt[30];
+
+uint8_t hitrost = 65;
+uint8_t obrati = 65;
+uint8_t engLoad = 65;
+uint8_t oilTemp = 65;
 
 /* USER CODE END PV */
 
@@ -129,6 +149,8 @@ extern void videoTaskFunc(void *argument);
 
 void ReceiveMessageTask(void *argument);
 void SendQueryTask(void *argument);
+void ReceiveDataTask(void *argument);
+void SendDataToUARTTask(void *argument);
 
 /* USER CODE END PFP */
 /* Private user code ---------------------------------------------------------*/
@@ -253,6 +275,8 @@ int main(void)
   /* add threads, ... */
   ReceiveMessageTaskHandle = osThreadNew(ReceiveMessageTask, NULL, &ReceiveMessageTask_attributes);
   SendQueryTaskHandle = osThreadNew(SendQueryTask, NULL, &SendQueryTask_attributes);
+  ReceiveDataTaskHandle = osThreadNew(ReceiveDataTask, NULL, &ReceiveDataTask_attributes);
+  SendDataToUARTTaskHandle = osThreadNew(SendDataToUARTTask, NULL, &SendDataToUARTTask_attributes);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -777,9 +801,6 @@ void SendQueryTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-	  HAL_UART_Transmit(&uart, txt, sizeof(txt), HAL_MAX_DELAY);
-	  // uart.gState = HAL_UART_STATE_READY;
-	  blink = 1;
 	  OBD2_SendQuery(0x01, OBD2_PID_VEHICLE_SPEED);
 	  osDelay(DELAY);
 	  OBD2_SendQuery(0x01, OBD2_PID_ENGINE_SPEED);
@@ -821,6 +842,37 @@ void SendQueryTask(void *argument)
 
 }
 
+void ReceiveDataTask(void *argument) {
+	uint8_t value;
+	for (;;) {
+		if (osMessageQueueGet(hitrost_Queue, &value, NULL, 0U) == osOK) {
+			hitrost = value;
+		}
+		if (osMessageQueueGet(obrati_Queue, &value, NULL, 0U) == osOK) {
+			obrati = value;
+		}
+		if (osMessageQueueGet(engLoad_Queue, &value, NULL, 0U) == osOK) {
+			engLoad = value;
+		}
+		if (osMessageQueueGet(oilTemp_Queue, &value, NULL, 0U) == osOK) {
+			oilTemp = value;
+		}
+		osDelay(50);
+	}
+}
+
+void SendDataToUARTTask(void *argument) {
+	uint8_t podatki[4];
+	for (;;) {
+		podatki[0] = hitrost;
+		podatki[1] = obrati;
+		podatki[2] = engLoad;
+		podatki[3] = oilTemp;
+		HAL_UART_Transmit(&uart, podatki, sizeof(podatki), HAL_MAX_DELAY);
+		osDelay(50)
+	}
+}
+
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -834,14 +886,12 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
-	static char znak= 'A';
   for(;;)
   {
 	BSP_LED_On(LED_GREEN);
     osDelay(1000);
     BSP_LED_Off(LED_GREEN);
     osDelay(1000);
-    HAL_UART_Transmit(&uart, &znak, sizeof(znak), HAL_MAX_DELAY);
   }
   /* USER CODE END 5 */
 }
