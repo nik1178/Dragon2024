@@ -67,6 +67,7 @@ def main(page: ft.Page):
                 "y3": y3_data,
                 "y4": y4_data
             }
+            AI_response = analyze.analyze(y1_data, y2_data, y3_data, y4_data)
             try:
                 uri = "mongodb+srv://dragon:dragonhack123@dh.xbqmeva.mongodb.net/?retryWrites=true&w=majority&appName=DH"
                 client = MongoClient(uri)
@@ -80,7 +81,6 @@ def main(page: ft.Page):
             stop_bool = True
             txt_stop="End & Save ride"
         
-        AI_response = analyze.analyze(y1_data, y2_data, y3_data, y4_data)
         
         button_stop.text = txt_stop
         button_stop.update()
