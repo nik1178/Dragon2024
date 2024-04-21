@@ -25,7 +25,7 @@ def receive_data():
         for byte in cc:
             integers.append(byte)
         
-        new_data.append(integers)
+        new_data = integers
 
 def fake_data():
     #while True:
@@ -43,11 +43,11 @@ def get_data():
     #if len(temp) < 1:
     #    return [[-1,-1,-1,-1]]
 
-    new_data = []
-    fake_data()
-    temp = new_data
+    # new_data = []
+    # fake_data()
+    # temp = new_data
 
-    return temp
+    return new_data
 
 
 # Start of main code

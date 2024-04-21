@@ -8,7 +8,7 @@ from flet.matplotlib_chart import MatplotlibChart
 import threading
 import com_reader
 from pymongo.mongo_client import MongoClient
-#import analyze
+import analyze
 import sys
 
 matplotlib.use("svg")
@@ -66,7 +66,7 @@ def main(page: ft.Page):
         if stop_bool:
             stop_bool = False
             txt_stop="Start ride"
-            #analysis(x1_data, y1_data, x2_data, y2_data, x3_data, y3_data, x4_data, y4_data)
+            analysis(y1_data, y2_data, y3_data, y4_data)
             
             json_data = {
                 "username": username,
@@ -93,7 +93,7 @@ def main(page: ft.Page):
             stop_bool = True
             txt_stop="End & Save ride"
         
-        #AI_response = analyze.analyze(y1_data, y2_data, y3_data, y4_data)
+        # AI_response = analyze.analyze(y1_data, y2_data, y3_data, y4_data)
         
         button_stop.text = txt_stop
         button_stop.update()
